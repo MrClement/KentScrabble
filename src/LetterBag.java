@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Alex Patel
+ *
+ * The collection of all the tiles used in a game. 
+ * Starts with 100 tiles with the original Scrabble distribution.
+ * 
+ * 
+ */
 public class LetterBag {
 	private ArrayList<Letter> bag;
 	public static int numLetters=100;
@@ -10,10 +18,20 @@ public class LetterBag {
 		fill();
 	}
 	
+	
+	/**
+	 * @return number of tiles in bag
+	 */
 	public int getSize(){
 		return bag.size();
 	}
 
+	
+	/**
+	 * fills bag with original Scrabble distribution of letters. 
+	 * Randomly fills the bag if more letters requested 
+	 * and randomly takes away letters of low value away if less
+	 */
 	public void fill(){
 		//normal letter distribution
 		for(int i=1;i<13;i++){
@@ -83,6 +101,13 @@ public class LetterBag {
 		
 	}
  
+	
+	/**
+	 * @param how many (random) letters to draw from the bag
+	 * @return ArrayList<Letter> with the requested random pieces
+	 * 
+	 * also removes the pieces from the collection after given to player
+	 */
 	public ArrayList<Letter> draw(int numLetters){
 		ArrayList<Letter> d=new ArrayList<Letter>();
 		Random r=new Random();
