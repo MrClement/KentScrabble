@@ -23,6 +23,7 @@ public class Dictionary {
 			w = new Word(line);
 			allWords.put(line, w.getVal());
 		}
+		scan.close();
 	}
 
 	/**
