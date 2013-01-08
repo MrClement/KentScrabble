@@ -1,4 +1,11 @@
 
+/**
+ * @author Alex Patel
+ *
+ *Letter - holds the character and point values representative of a scrabble letter tile. 
+ *includes blanks, which can have a letter value but are worth no points
+ */
+
 public class Letter {
 	private char letter;
 	private int val;
@@ -20,14 +27,26 @@ public class Letter {
 		else isBlank=false;
 	}
 	
+	
+	/**
+	 * @return the letter's character value
+	 */
 	public char getLetter(){
 		return letter;
 	}
 	
+	/**
+	 * @return the letter's point value
+	 */
 	public int getVal(){
 		return val;
 	}
 	
+	
+	/**
+	 * internal method to set the value of the letter when it is created. 
+	 * 
+	 */
 	private void setVal(){
 		if(letter=='0'){ //char '0' == blank tile
 			val=val1;
@@ -55,6 +74,12 @@ public class Letter {
 		}
 	}
 
+	
+	/**
+	 * Set the character value of the letter
+	 * 
+	 * @param character, '0' = blank
+	 */
 	public void setChar(char a){
 		if(isBlank==true){
 			letter=a;
