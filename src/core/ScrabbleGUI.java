@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ScrabbleGUI {
@@ -27,20 +28,25 @@ public class ScrabbleGUI {
 
 	public ScrabbleGUI() {
 		frame = new JFrame();
-		frame.setSize(800, 800);
+		frame.setSize(730,730);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		
-		showBoard();
+		Board test = new Board();
+		Space s = new Space(0, new Letter('A'));
+		test.arr[0][0] = s;
+		
+		showBoard(test);
+		//showBoard(null);
 	}
 
 	
 	//Colors
 	
 	
-	private void showBoard() {
+	private void showBoard(Board b) {
 		
-		Board tempBoard = new Board();
+		if(b == null)b = new Board();
 		
 		int i = 15;
 		int j = 15;
@@ -60,26 +66,41 @@ public class ScrabbleGUI {
 				// 0 is normal space, 1 is double letter, 2 is triple letter,
 				 // 3 is double word, 4 is triple word
 				
-				Space sp = tempBoard.arr[m][n];
+				Space sp = b.arr[m][n];
+
 				switch(sp.type){
-				case 0:
-					panelHolder[m][n].setBackground(Color.WHITE);
-					break;
-				case 1:
-					panelHolder[m][n].setBackground(Color.BLUE.brighter());
-					break;
-				case 2:
-					panelHolder[m][n].setBackground(Color.GREEN);
-					break;
-				case 3:
-					panelHolder[m][n].setBackground(Color.RED);
-					break;
-				case 4:
-					panelHolder[m][n].setBackground(Color.ORANGE);
-					break;
-				default:
-					panelHolder[m][n].setBackground(Color.BLACK);
-					break;
+					case 0:
+						panelHolder[m][n].setBackground(Color.WHITE);
+						break;
+					case 1:
+						panelHolder[m][n].setBackground(Color.BLUE);
+						break;
+					case 2:
+						panelHolder[m][n].setBackground(Color.GREEN);
+						break;
+					case 3:
+						panelHolder[m][n].setBackground(Color.RED);
+						break;
+					case 4:
+						panelHolder[m][n].setBackground(Color.ORANGE);
+						break;
+					default:
+						panelHolder[m][n].setBackground(Color.BLACK);
+						break;
+				}
+				
+				//Evaluate space to see if it has an associated letter, if so, dump the image into the panel
+				if(sp.getLetter().getLetter() != '0') {
+					String resourceName = "";
+					//There's an actual letter here, let's stick the image in
+					char uppercase = Character.toUpperCase(sp.getLetter().getLetter());
+					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
+					resourceName = resourceName + ".png";
+					
+					ImageIcon icon = createImageIcon(resourceName);
+					JLabel label = new JLabel();
+					label.setIcon(icon);
+					panelHolder[m][n].add(label);
 				}
 				
 				frame.add(panelHolder[m][n]);
@@ -88,10 +109,10 @@ public class ScrabbleGUI {
 		
 	}
 
-	protected ImageIcon createImageIcon(String path, String description) {
+	protected ImageIcon createImageIcon(String path) {
 		java.net.URL url = getClass().getResource(path);
 		if (url != null) {
-			return new ImageIcon(url, description);
+			return new ImageIcon(url, "");
 		} else {
 			System.err.println("DERPYFILE COULDN'T BE LOCATED: " + path);
 			return null;

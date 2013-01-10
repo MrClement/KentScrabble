@@ -9,6 +9,12 @@ public class Space {
 		this.letter=blank;
 		this.type=type;
 	}
+	
+	public Space(int type, Letter letter) {
+		this.letter=letter;
+		this.type=type;
+	}
+	
 	public Letter getLetter(){
 		return letter;
 	}
