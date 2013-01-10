@@ -1,3 +1,5 @@
+package core;
+
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -26,7 +28,7 @@ public class ScrabbleGUI {
 
 	public ScrabbleGUI() {
 		frame = new JFrame();
-		frame.setSize(900, 900);
+		frame.setSize(800, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		
@@ -38,8 +40,8 @@ public class ScrabbleGUI {
 	
 	
 	private void showBoard() {
-		int i = 16;
-		int j = 16;
+		int i = 15;
+		int j = 15;
 
 		GridLayout layout = new GridLayout(i, j);
 		layout.setHgap(2);
@@ -52,11 +54,10 @@ public class ScrabbleGUI {
 			for (int n = 0; n < j; n++) {
 				panelHolder[m][n] = new JPanel();
 				panelHolder[m][n].setSize(60, 60);
-				/*if ((n % 2 + m % 2) % 2 == 0)
-					panelHolder[m][n].setBackground(Color.WHITE);
-				else
-					panelHolder[m][n].setBackground(Color.GRAY);
-					*/
+
+				panelHolder[m][n].setBackground(Color.GRAY);
+				
+				if((n==m || ((i-1)-n) == m) && (n<5 || n>9))panelHolder[m][n].setBackground(Color.RED);
 				
 				frame.add(panelHolder[m][n]);
 			}
