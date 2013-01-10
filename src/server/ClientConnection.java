@@ -2,15 +2,19 @@ package server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintStream;
 import java.net.Socket;
+
+import core.Board;
 
 public class ClientConnection implements Runnable {
 
 	Socket client;
 	BufferedReader in;
 	PrintStream out;
+	Board b;
+	ObjectInputStream objIn;
 
 	public ClientConnection(Socket client, String[] stuff) {
 		this.client = client;
@@ -20,21 +24,16 @@ public class ClientConnection implements Runnable {
 	@Override
 	public synchronized void run() {
 		try {
-			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			objIn = new ObjectInputStream(client.getInputStream());
 			out = new PrintStream(client.getOutputStream());
-			String line = "";
-			int i = 0;
-			while (true) {
-				line = in.readLine();
-				if (!line.equals(".")) {
-					boardStrings[i] = line;
-					i++;
-				}
-				i = 0;
-				wait();
+			Object next;
+			while ((next = objIn.readObject()) != null) {
+				b = (Board) next;
+				// make move
+				out.println(b);
 
 			}
-		} catch (IOException | InterruptedException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -9,7 +9,7 @@ public class TestDriver {
 	 */
 	public static void main(String[] args) {
 		Dictionary d = new Dictionary();
-		System.out.println(d.isWord(""));
+		System.out.println(d.isWord("wok"));
 
 	}
 
