@@ -34,16 +34,30 @@ public class ScrabbleGUI {
 		frame.setLocationRelativeTo(null);
 		
 		Board test = new Board();
-		test.arr[0][0] =  new Space(0, new Letter('H'));
-		test.arr[0][1] =  new Space(0, new Letter('I'));
-		test.arr[0][2] =  new Space(0, new Letter('T'));
-		test.arr[0][3] =  new Space(0, new Letter('H'));
-		test.arr[0][4] =  new Space(0, new Letter('E'));
-		test.arr[0][5] =  new Space(0, new Letter('R'));
-		test.arr[0][6] =  new Space(0, new Letter('E'));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		
-		showBoard(test);
-		//showBoard(null);
+		//showBoard(test);
+		showBoard(null);
 	}
 
 	
@@ -66,8 +80,7 @@ public class ScrabbleGUI {
 		
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				panelHolder[m][n] = new JPanel(new GridLayout());
-				panelHolder[m][n].setSize(45, 45);
+				panelHolder[m][n] = new JPanel(new GridLayout()); //GridLayout here simply a way to make there be no padding for tiles. Strange workaround, but it works
 				
 				// 0 is normal space, 1 is double letter, 2 is triple letter,
 				 // 3 is double word, 4 is triple word
