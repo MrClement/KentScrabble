@@ -27,18 +27,18 @@ public class Board implements Serializable {
 		// all of the double word spaces
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
-				arr[i][j] = new Space(3);
+				if(i == j)arr[i][j] = new Space(3);
 			}
 			for (int j = 13; j > 9; j--) {
-				arr[i][j] = new Space(3);
+				if(14-i==j)arr[i][j] = new Space(3);
 			}
 		}
 		for (int i = 13; i > 9; i--) {
 			for (int j = 1; j < 5; j++) {
-				arr[i][j] = new Space(3);
+				if(14-i==j)arr[i][j] = new Space(3);
 			}
-			for (int j = 13; j > 11; j--) {
-				arr[i][j] = new Space(3);
+			for (int j = 13; j > 9; j--) {
+				if(i==j)arr[i][j] = new Space(3);
 			}
 		}
 		// all of the triple letter spaces
