@@ -33,8 +33,14 @@ public class ScrabbleGUI {
 		frame.setLocationRelativeTo(null);
 		
 		Board test = new Board();
-		Space s = new Space(0, new Letter('A'));
-		test.arr[0][0] = s;
+		test.arr[0][0] =  new Space(0, new Letter('H'));
+		test.arr[0][1] =  new Space(0, new Letter('I'));
+		test.arr[0][2] =  new Space(0, new Letter('T'));
+		test.arr[0][3] =  new Space(0, new Letter('H'));
+		test.arr[0][4] =  new Space(0, new Letter('E'));
+		test.arr[0][5] =  new Space(0, new Letter('R'));
+		test.arr[0][6] =  new Space(0, new Letter('E'));
+		
 		
 		showBoard(test);
 		//showBoard(null);
