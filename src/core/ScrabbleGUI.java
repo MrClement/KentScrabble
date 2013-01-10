@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class ScrabbleGUI {
 
@@ -28,7 +29,7 @@ public class ScrabbleGUI {
 
 	public ScrabbleGUI() {
 		frame = new JFrame();
-		frame.setSize(730,730);
+		frame.setSize(675,675);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		
@@ -40,7 +41,6 @@ public class ScrabbleGUI {
 		test.arr[0][4] =  new Space(0, new Letter('E'));
 		test.arr[0][5] =  new Space(0, new Letter('R'));
 		test.arr[0][6] =  new Space(0, new Letter('E'));
-		
 		
 		showBoard(test);
 		//showBoard(null);
@@ -66,8 +66,8 @@ public class ScrabbleGUI {
 		
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				panelHolder[m][n] = new JPanel();
-				panelHolder[m][n].setSize(60, 60);
+				panelHolder[m][n] = new JPanel(new GridLayout());
+				panelHolder[m][n].setSize(45, 45);
 				
 				// 0 is normal space, 1 is double letter, 2 is triple letter,
 				 // 3 is double word, 4 is triple word
@@ -106,6 +106,7 @@ public class ScrabbleGUI {
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
 					label.setIcon(icon);
+					
 					panelHolder[m][n].add(label);
 				}
 				
