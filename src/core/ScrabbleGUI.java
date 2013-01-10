@@ -1,6 +1,5 @@
 package core;
 
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
@@ -40,6 +39,9 @@ public class ScrabbleGUI {
 	
 	
 	private void showBoard() {
+		
+		Board tempBoard = new Board();
+		
 		int i = 15;
 		int j = 15;
 
@@ -54,10 +56,31 @@ public class ScrabbleGUI {
 			for (int n = 0; n < j; n++) {
 				panelHolder[m][n] = new JPanel();
 				panelHolder[m][n].setSize(60, 60);
-
-				panelHolder[m][n].setBackground(Color.GRAY);
 				
-				if((n==m || ((i-1)-n) == m) && (n<5 || n>9))panelHolder[m][n].setBackground(Color.RED);
+				// 0 is normal space, 1 is double letter, 2 is triple letter,
+				 // 3 is double word, 4 is triple word
+				
+				Space sp = tempBoard.arr[m][n];
+				switch(sp.type){
+				case 0:
+					panelHolder[m][n].setBackground(Color.WHITE);
+					break;
+				case 1:
+					panelHolder[m][n].setBackground(Color.BLUE.brighter());
+					break;
+				case 2:
+					panelHolder[m][n].setBackground(Color.GREEN);
+					break;
+				case 3:
+					panelHolder[m][n].setBackground(Color.RED);
+					break;
+				case 4:
+					panelHolder[m][n].setBackground(Color.ORANGE);
+					break;
+				default:
+					panelHolder[m][n].setBackground(Color.BLACK);
+					break;
+				}
 				
 				frame.add(panelHolder[m][n]);
 			}

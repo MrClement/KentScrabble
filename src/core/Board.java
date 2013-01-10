@@ -8,6 +8,7 @@ public class Board implements Serializable {
 	Space[][] arr;
 
 	public Board() {
+		arr = new Space[15][15];
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
 				arr[i][j] = new Space(0);
