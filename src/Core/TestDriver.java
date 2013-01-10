@@ -1,3 +1,4 @@
+package Core;
 public class TestDriver {
 
 	/**
@@ -7,7 +8,7 @@ public class TestDriver {
 	 */
 	public static void main(String[] args) {
 		Dictionary d = new Dictionary();
-		System.out.println(d.isWord("qi"));
+		System.out.println(d.isWord("oxyphenbutazone"));
 
 	}
 
