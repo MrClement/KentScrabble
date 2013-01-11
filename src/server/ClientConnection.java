@@ -16,7 +16,7 @@ public class ClientConnection implements Runnable {
 	Board b;
 	ObjectInputStream objIn;
 
-	public ClientConnection(Socket client, String[] stuff) {
+	public ClientConnection(Socket client) {
 		this.client = client;
 
 	}
