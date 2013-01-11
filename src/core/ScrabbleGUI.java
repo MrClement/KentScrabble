@@ -19,6 +19,7 @@ public class ScrabbleGUI {
 				try {
 					ScrabbleGUI window = new ScrabbleGUI();
 					window.frame.setVisible(true);
+					window.frame.setTitle("Scarble");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,8 +56,8 @@ public class ScrabbleGUI {
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		
-		//showBoard(test);
-		showBoard(null);
+		showBoard(test);
+		//showBoard(null);
 	}
 
 	
@@ -108,12 +109,14 @@ public class ScrabbleGUI {
 				}
 				
 				//Evaluate space to see if it has an associated letter, if so, dump the image into the panel
-				if(sp.getLetter().getLetter() != '0') {
+				if(sp.getLetter().getLetter() != '0' || (m==n && n==7)) {
 					String resourceName = "";
 					//There's an actual letter here, let's stick the image in
 					char uppercase = Character.toUpperCase(sp.getLetter().getLetter());
 					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
 					resourceName = resourceName + ".png";
+					
+					if((m==n && n==7))resourceName = "star.png";
 					
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
