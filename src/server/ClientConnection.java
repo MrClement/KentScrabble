@@ -32,7 +32,7 @@ public class ClientConnection implements Runnable {
 			Object next;
 			while ((next = objIn.readObject()) != null) {
 				b = (Board) next;
-				// make move
+				// ask other AI's to make move
 				out.println(b);
 
 			}
