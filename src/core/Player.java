@@ -10,7 +10,7 @@ public abstract class Player {
 
 	public Player(LetterBag ls) {
 		letterSack = ls;
-		numLetters = 7;
+		setNumLetters(7);
 		setAvailableCharacters();
 
 	}
@@ -26,8 +26,8 @@ public abstract class Player {
 	}
 
 	public void setAvailableCharacters() {
-		availableCharacters = letterSack.draw(numLetters);
-		numLetters = 0;
+		availableCharacters = letterSack.draw(getNumLetters());
+		setNumLetters(0);
 	}
 
 	public void incrementScore(int i) {
@@ -36,6 +36,14 @@ public abstract class Player {
 
 	public ArrayList<Letter> getAvailableCharacters() {
 		return availableCharacters;
+	}
+
+	public int getNumLetters() {
+		return numLetters;
+	}
+
+	public void setNumLetters(int numLetters) {
+		this.numLetters = numLetters;
 	}
 
 }
