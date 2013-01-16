@@ -77,5 +77,9 @@ public class Board implements Serializable {
 		arr[14][11] = new Space(1);
 		arr[11][14] = new Space(1);
 	}
+	
+	public Space[][] getArr(){
+		return arr;
+	}
 
 }
