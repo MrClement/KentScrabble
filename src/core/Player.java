@@ -34,4 +34,8 @@ public abstract class Player {
 		score += i;
 	}
 
+	public ArrayList<Letter> getAvailableCharacters() {
+		return availableCharacters;
+	}
+
 }
