@@ -30,9 +30,9 @@ public abstract class Player {
 		}
 	}
 	
-	public void fill(LetterBag a){
-		while(letters.size()<7||a.getSize()>0){
-			letters.add(a.draw(1).get(0));
+	public void fill(){
+		while(letters.size()<7||bag.getSize()>0){
+			letters.add(bag.draw(1).get(0));
 		}
 	}
 	
