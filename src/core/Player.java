@@ -1,4 +1,47 @@
 package core;
+import java.util.ArrayList;
+
+public abstract class Player{
+	public static final int numLetters=7;
+	protected ArrayList<Letter> letters;
+	protected int score;
+	
+	public Player(){
+		letters=new ArrayList<Letter>();
+		score=0;
+	}
+	
+	public abstract Board makeMove(Board b);
+	
+	public int getScore(){
+		return score;
+	}
+	
+	public ArrayList<Letter> getLetters(){
+		return letters;
+	}
+	
+	public void draw(LetterBag a, int num){
+		for(int i=0;i<num;i++){
+			letters.add(a.draw(num).get(i));
+		}
+	}
+	
+	public void fill(LetterBag a){
+		while(letters.size()<7||a.getSize()>0){
+			letters.add(a.draw(1).get(0));
+		}
+	}
+	
+	public void addScore(int i){
+		score+=i;
+	}
+	
+	
+}
+
+
+/*
 
 import java.util.ArrayList;
 
@@ -47,3 +90,5 @@ public abstract class Player {
 	}
 
 }
+
+*/
