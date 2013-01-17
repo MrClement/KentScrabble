@@ -92,7 +92,7 @@ public class Board implements Serializable {
 		Letter[] word = w.getWordInLetters();
 		for (int i = 0; i < word.length; i++) {
 			arr[x][y].setLetter(word[i]);
-			if (w.getDirection() == 'H') {
+			if (Character.toUpperCase(w.getDirection()) == 'H') {
 				y++;
 			} else {
 				x++;
