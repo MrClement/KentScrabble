@@ -1,13 +1,16 @@
 package core;
 import java.util.ArrayList;
 
-public abstract class Player{
+public abstract class Player {
+	
 	public static final int numLetters=7;
 	protected ArrayList<Letter> letters;
 	protected int score;
+	protected LetterBag bag;
 	
-	public Player(){
+	public Player(LetterBag ls){
 		letters=new ArrayList<Letter>();
+		bag=ls;
 		score=0;
 	}
 	
@@ -21,9 +24,9 @@ public abstract class Player{
 		return letters;
 	}
 	
-	public void draw(LetterBag a, int num){
+	public void draw(int num){
 		for(int i=0;i<num;i++){
-			letters.add(a.draw(num).get(i));
+			letters.add(bag.draw(num).get(i));
 		}
 	}
 	
