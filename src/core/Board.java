@@ -27,18 +27,22 @@ public class Board implements Serializable {
 		// all of the double word spaces
 		for (int i = 1; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
-				if(i == j)arr[i][j] = new Space(3);
+				if (i == j)
+					arr[i][j] = new Space(3);
 			}
 			for (int j = 13; j > 9; j--) {
-				if(14-i==j)arr[i][j] = new Space(3);
+				if (14 - i == j)
+					arr[i][j] = new Space(3);
 			}
 		}
 		for (int i = 13; i > 9; i--) {
 			for (int j = 1; j < 5; j++) {
-				if(14-i==j)arr[i][j] = new Space(3);
+				if (14 - i == j)
+					arr[i][j] = new Space(3);
 			}
 			for (int j = 13; j > 9; j--) {
-				if(i==j)arr[i][j] = new Space(3);
+				if (i == j)
+					arr[i][j] = new Space(3);
 			}
 		}
 		// all of the triple letter spaces
@@ -77,9 +81,23 @@ public class Board implements Serializable {
 		arr[14][11] = new Space(1);
 		arr[11][14] = new Space(1);
 	}
-	
-	public Space[][] getArr(){
+
+	public Space[][] getArr() {
 		return arr;
+	}
+
+	public void addWord(Word w) {
+		int x = (int) w.getLocation().getX();
+		int y = (int) w.getLocation().getY();
+		Letter[] word = w.getWordInLetters();
+		for (int i = 0; i < word.length; i++) {
+			arr[x][y].setLetter(word[i]);
+			if (w.getDirection() == 'H') {
+				y++;
+			} else {
+				x++;
+			}
+		}
 	}
 
 }
