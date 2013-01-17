@@ -112,8 +112,11 @@ public class ScrabbleGUI {
 						break;
 				}
 				
+				boolean center = (m==n && n==7);
+				boolean occupied = sp.getLetter().getCharacter() != '0';
+				
 				//Evaluate space to see if it has an associated letter, if so, dump the image into the panel
-				if(sp.getLetter().getCharacter() != '0' || (m==n && n==7)) {
+				if(occupied && !center) {
 					String resourceName = "";
 					//There's an actual letter here, let's stick the image in
 					char uppercase = Character.toUpperCase(sp.getLetter().getCharacter());
@@ -121,6 +124,29 @@ public class ScrabbleGUI {
 					resourceName = resourceName + ".png";
 					
 					if((m==n && n==7))resourceName = "star.png";
+					
+					ImageIcon icon = createImageIcon(resourceName);
+					JLabel label = new JLabel();
+					label.setIcon(icon);
+					
+					panelHolder[m][n].add(label);
+				}
+				
+				if(center && occupied) {
+					String resourceName = "";
+					//There's an actual letter here, let's stick the image in
+					char uppercase = Character.toUpperCase(sp.getLetter().getCharacter());
+					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
+					resourceName = resourceName + ".png";
+					
+					ImageIcon icon = createImageIcon(resourceName);
+					JLabel label = new JLabel();
+					label.setIcon(icon);
+					
+					panelHolder[m][n].add(label);
+				}
+				else if (center && !occupied) {
+					String resourceName = "star.png";
 					
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
