@@ -32,7 +32,7 @@ public class ScrabbleGUI {
 		frame.setSize(675,675);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		
+		/*
 		Board test = new Board();
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
@@ -55,9 +55,9 @@ public class ScrabbleGUI {
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
 		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		
-		showBoard(test);
-		//showBoard(null);
+		*/
+		//showBoard(test);
+		showBoard(null);
 	}
 
 	
@@ -76,6 +76,10 @@ public class ScrabbleGUI {
 		layout.setVgap(2);
 
 		JPanel[][] panelHolder = new JPanel[i][j];
+		frame.getContentPane().removeAll();
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+		
 		frame.setLayout(layout);
 		
 		for (int m = 0; m < i; m++) {
