@@ -11,7 +11,7 @@ public abstract class Player{
 		score=0;
 	}
 	
-	public abstract Board makeMove(Board b);
+	public abstract Word makeMove(Board b);
 	
 	public int getScore(){
 		return score;
