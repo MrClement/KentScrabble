@@ -25,20 +25,20 @@ public class Squeezy extends Player{
 		y=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getY();
 		//horizontal
 		int farL;
-		int c=0;
-		while(b.getArr()[c][y].getLetter().getCharacter()=='0'){
+		int c=-1;
+		while(x+c>0&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
 			c--;
 		}
 		farL=x+c;
 		
 		int farR;
-		int d=0;
-		while(b.getArr()[d][y].getLetter().getCharacter()=='0'){
+		int d=1;
+		while(x+d<15&&b.getArr()[x+d][y].getLetter().getCharacter()=='0'){
 			d++;
 		}
 		farR=x+d;
 
-		for(int i=farL;i<x;i++){
+		for(int i=farL;i<=x;i++){
 			for(int k=x;k<farR;k++){
 					int length=farR-farL;
 					String s="";
@@ -49,15 +49,15 @@ public class Squeezy extends Player{
 		
 		//vertical
 		int farU;
-		int r=0;
-		while(b.getArr()[x][r].getLetter().getCharacter()=='0'){
+		int r=-1;
+		while(y+r>0&&b.getArr()[x][y+r].getLetter().getCharacter()=='0'){
 			r--;
 		}
 		farU=y+r;
 		
 		int farD;
-		int w=0;
-		while(b.getArr()[x][w].getLetter().getCharacter()=='0'){
+		int w=1;
+		while(y+w<15&&b.getArr()[x][y+w].getLetter().getCharacter()=='0'){
 			w++;
 		}
 		farD=x+w;
@@ -94,4 +94,20 @@ public class Squeezy extends Player{
 	public Word makeMove(Board b){
 		return null;
 	}
+
+	public static void main(String[] args){
+		LetterBag a=new LetterBag();
+		Board b=new Board();
+		Squeezy c=new Squeezy(a);
+		Word d=new Word("A", new Point(7,7), 'H');
+		b.addWord(d);
+		ArrayList<ArrayList> e=new ArrayList<ArrayList>();
+		ArrayList f=new ArrayList();
+		f.add(new Letter('A'));
+		f.add(new Point(7,7));
+		e.add(f);
+		System.out.println(b.getArr()[7][7].getLetter().getCharacter());
+		System.out.print(c.findWordLengths(e,0,b).size());
+	}
 }
+
