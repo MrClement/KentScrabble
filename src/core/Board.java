@@ -91,6 +91,10 @@ public class Board implements Serializable {
 		int y = (int) w.getLocation().getY();
 		Letter[] word = w.getWordInLetters();
 		for (int i = 0; i < word.length; i++) {
+			if (x > 14 || y > 14) {
+				System.err.println("Invalid move");
+				break;
+			}
 			arr[x][y].setLetter(word[i]);
 			if (Character.toUpperCase(w.getDirection()) == 'H') {
 				y++;
