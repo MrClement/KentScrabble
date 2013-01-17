@@ -109,10 +109,10 @@ public class ScrabbleGUI {
 				}
 				
 				//Evaluate space to see if it has an associated letter, if so, dump the image into the panel
-				if(sp.getLetter().getLetter() != '0' || (m==n && n==7)) {
+				if(sp.getLetter().getCharacter() != '0' || (m==n && n==7)) {
 					String resourceName = "";
 					//There's an actual letter here, let's stick the image in
-					char uppercase = Character.toUpperCase(sp.getLetter().getLetter());
+					char uppercase = Character.toUpperCase(sp.getLetter().getCharacter());
 					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
 					resourceName = resourceName + ".png";
 					

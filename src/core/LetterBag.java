@@ -114,7 +114,7 @@ public class LetterBag {
 		Random r=new Random();
 		int j=r.nextInt(bag.size());
 		for(int i=0;i<numLetters;i++){
-			d.add(new Letter(bag.get(j).getLetter()));
+			d.add(new Letter(bag.get(j).getCharacter()));
 			bag.remove(j);
 		}
 		return d;
