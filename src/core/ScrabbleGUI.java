@@ -64,7 +64,7 @@ public class ScrabbleGUI {
 	//Colors
 	
 	
-	private void showBoard(Board b) {
+	public void showBoard(Board b) {
 		
 		if(b == null)b = new Board();
 		
