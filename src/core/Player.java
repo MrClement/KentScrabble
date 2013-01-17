@@ -8,10 +8,10 @@ public abstract class Player {
 	protected int score;
 	protected LetterBag bag;
 	
-	public Player(LetterBag ls){
-		letters=new ArrayList<Letter>();
-		bag=ls;
-		score=0;
+	public Player(LetterBag bag){
+		letters = new ArrayList<Letter>();
+		this.bag = bag;
+		score = 0;
 	}
 	
 	public abstract Word makeMove(Board b);
