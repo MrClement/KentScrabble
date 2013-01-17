@@ -6,7 +6,7 @@ public class Space {
 				// 3 is double word, 4 is triple word
 
 	public Space(int type) {
-		Letter blank=new Letter ('#');
+		Letter blank=new Letter ('0');
 		this.letter=blank;
 		this.type=type;
 	}
