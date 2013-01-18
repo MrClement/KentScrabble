@@ -77,18 +77,20 @@ public class Squeezy extends Player{
 	
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
-	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
+	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard){
+		for(int v=0;v<lettersFromBoard.size();v++){
+		for(int z=0;z<lettersFromBoard.get(v).size();z++){
+			
 		ArrayList<Letter> possLetters=new ArrayList<Letter>();
-		
 		ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;
 		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
-		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
+		possLetters.add((Letter)lettersFromBoard.get(v).get(0));
 		
-		for(int i=2;i<lettersFromBoard.get(letterIndex).size();i++){
+		for(int i=2;i<lettersFromBoard.get(v).size();i++){
 			ArrayList<Word> wordsOfSize=new ArrayList<Word>();
 			ArrayList<Word> possWords=new ArrayList<Word>();
 			for(String s:dic.getAllWords()){
-				if(((Word)lettersFromBoard.get(letterIndex).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
+				if(((Word)lettersFromBoard.get(v).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
 			}
 			for(Word s:wordsOfSize){
 				int p=0;
@@ -100,7 +102,9 @@ public class Squeezy extends Player{
 			int max=0;
 			for(Word s:possWords)if(s.getVal()>max)maxIndex=possWords.indexOf(s);
 			
-			lettersFromBoardCopy.get(letterIndex).add(wordIndex, possWords.get(maxIndex));
+			lettersFromBoardCopy.get(v).add(z, possWords.get(maxIndex));
+		}
+		}
 		}
 		
 		
