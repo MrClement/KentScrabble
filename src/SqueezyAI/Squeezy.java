@@ -5,7 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Squeezy extends Player{
-	Dictionary dic=new Dictionary();
+	SqueezyDictionary dic=new SqueezyDictionary();
 	
 	public Squeezy(LetterBag a){
 		super(a);
@@ -79,15 +79,28 @@ public class Squeezy extends Player{
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
 		ArrayList<Letter> possLetters=new ArrayList<Letter>();
+		
+		ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;
 		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
 		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
 		
 		for(int i=2;i<lettersFromBoard.get(letterIndex).size();i++){
-			ArrayList<Word> WordsOfSize=new ArrayList<Word>();
-			while(dic.getAllWords().hasNext()){
-				
+			ArrayList<Word> wordsOfSize=new ArrayList<Word>();
+			ArrayList<Word> possWords=new ArrayList<Word>();
+			for(String s:dic.getAllWords()){
+				if(((Word)lettersFromBoard.get(letterIndex).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
+			}
+			for(Word s:wordsOfSize){
+				int p=0;
+				while(((String)s.getWord()).contains(""+possLetters.get(p).getCharacter()))p++;
+				if(p==possLetters.size())possWords.add(s);
 			}
 			
+			int maxIndex=0;
+			int max=0;
+			for(Word s:possWords)if(s.getVal()>max)maxIndex=possWords.indexOf(s);
+			
+			lettersFromBoardCopy.get(letterIndex).add(wordIndex, possWords.get(maxIndex));
 		}
 		
 		

@@ -70,4 +70,5 @@ public class Word {
 	public char getDirection() {
 		return direction;
 	}
+
 }
