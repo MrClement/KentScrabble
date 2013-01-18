@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Squeezy extends Player{
+	Dictionary dic=new Dictionary();
 	
 	public Squeezy(LetterBag a){
 		super(a);
@@ -72,13 +73,27 @@ public class Squeezy extends Player{
 		}
 		
 		return l;
-		
 	}
 	
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
+		ArrayList<Letter> possLetters=new ArrayList<Letter>();
+		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
+		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
+		
+		for(int i=2;i<lettersFromBoard.get(letterIndex).size();i++){
+			ArrayList<Word> WordsOfSize=new ArrayList<Word>();
+			while(dic.getAllWords().hasNext()){
+				
+			}
+			
+		}
+		
+		
+		
 		return null;
+	
 	}
 	
 	//returns an ArrayList with all of the words that are the length of size and include the letter letterFromBoard
