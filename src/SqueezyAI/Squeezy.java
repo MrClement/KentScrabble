@@ -9,12 +9,31 @@ public class Squeezy extends Player{
 	
 	public Squeezy(LetterBag a){
 		super(a);
+		letters.clear();
+		letters.add(new Letter('B'));
+		letters.add(new Letter('T'));
+		letters.add(new Letter('S'));
+		letters.add(new Letter('E'));
+		letters.add(new Letter('Y'));
 	}
 	
 	//return ArrayList of ArrayList, with one ArrayList for each letter already placed on the board
 	//the first box in each letter's ArrayList should be the Letter, the second is a Point with the letter's location on the board
-	private ArrayList<ArrayList> getLettersFromBoard(){
-		return null;
+	private ArrayList<ArrayList> getLettersFromBoard(Board b){
+		ArrayList<ArrayList> y=new ArrayList<ArrayList>();
+		Space[][] a=b.getArr();
+		for(int i=0;i<a.length;i++){
+				for(int j=0;j<a[i].length;j++){
+					if(a[i][j].getLetter().getCharacter()!='0'){
+						ArrayList test=new ArrayList();
+						test.add(a[i][j].getLetter());
+						test.add(new Point(i, j));
+						y.add(test);
+						
+					}
+				}
+		}
+		return y;
 	}
 	
 	//for any given letter in the arraylist, fill that letter's arraylist with empty words placemarking all of the different sizes 
@@ -77,51 +96,39 @@ public class Squeezy extends Player{
 	
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
-	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard){
-		for(int v=0;v<lettersFromBoard.size();v++){
-		for(int z=0;z<lettersFromBoard.get(v).size();z++){
-			
+	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
+		ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;		
 		ArrayList<Letter> possLetters=new ArrayList<Letter>();
-		ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;
 		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
-		possLetters.add((Letter)lettersFromBoard.get(v).get(0));
-		
-		for(int i=2;i<lettersFromBoard.get(v).size();i++){
+		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
+		for(int i=2;i<lettersFromBoard.get(letterIndex).size();i++){
 			ArrayList<Word> wordsOfSize=new ArrayList<Word>();
 			ArrayList<Word> possWords=new ArrayList<Word>();
 			for(String s:dic.getAllWords()){
-				if(((Word)lettersFromBoard.get(v).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
+				if(((Word)lettersFromBoard.get(letterIndex).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
 			}
 			for(Word s:wordsOfSize){
-				int p=0;
-				while(((String)s.getWord()).contains(""+possLetters.get(p).getCharacter()))p++;
-				if(p==possLetters.size())possWords.add(s);
+				boolean wo=true;
+				for(int ch=0;ch<s.getWord().length();ch++){
+					if(!possLetters.contains(new Letter(s.getWord().charAt(ch)))){
+						wo=false;
+						break;
+					}
+				}
+				
+				if (wo=true)possWords.add(s);
 			}
 			
 			int maxIndex=0;
 			int max=0;
 			for(Word s:possWords)if(s.getVal()>max)maxIndex=possWords.indexOf(s);
-			
-			lettersFromBoardCopy.get(v).add(z, possWords.get(maxIndex));
-		}
-		}
-		}
+			lettersFromBoardCopy.get(letterIndex).remove(wordIndex);
+			lettersFromBoardCopy.get(letterIndex).add(wordIndex, possWords.get(maxIndex));
+			}
 		
-		
-		
-		return null;
+		return lettersFromBoardCopy;
 	
 	}
-	
-	//returns an ArrayList with all of the words that are the length of size and include the letter letterFromBoard
-	private ArrayList getWordsOfLength(int size, char letterFromBoard){
-		return null;
-	}
-	
-	//Find the word of the highest point value for any given letter
-	private int getHighestPointWord_letter (ArrayList<ArrayList> a, int letterIndex){
-		return 0;
-	}	
 	
 	public Word makeMove(Board b){
 		return null;
@@ -131,15 +138,23 @@ public class Squeezy extends Player{
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
-		Word d=new Word("A", new Point(7,7), 'H');
+		Word d=new Word("E", new Point(7,7), 'H');
 		b.addWord(d);
 		ArrayList<ArrayList> e=new ArrayList<ArrayList>();
 		ArrayList f=new ArrayList();
 		f.add(new Letter('A'));
 		f.add(new Point(7,7));
 		e.add(f);
-		System.out.println(b.getArr()[7][7].getLetter().getCharacter());
-		System.out.print(c.findWordLengths(e,0,b).size());
+		for(int i=0;i<c.findWordLengths(e,0,b).size();i++){
+			e.get(0).add(c.findWordLengths(e,0,b).get(i));
+		}
+
+		c.fillWords(e,0,2);
+		for(int i=2;i<e.get(0).size();i++){
+			System.out.print(e.get(0).get(i)+", ");
+			System.out.println(((Word)e.get(0).get(i)).getWord().length());
+		}
+		
 	}
 }
 
