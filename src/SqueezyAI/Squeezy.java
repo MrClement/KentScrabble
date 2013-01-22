@@ -30,20 +30,20 @@ public class Squeezy extends Player{
 		return y;
 	}
 	
-	private int getFarL(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+	public int getFarL(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
 		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
 
 		int farL;
 		int c=-1;
-		while(x+c>-1&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
+		while(x+c>0&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
 			c--;
 		}
 		farL=x+c;
 		return farL;
 	}
 	
-	private int getFarR(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+	public int getFarR(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
 		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
 		
@@ -56,7 +56,7 @@ public class Squeezy extends Player{
 		return farR;
 	}
 	
-	private int getFarU(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+	public int getFarU(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
 		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());int farU;
 		int r=-1;
@@ -67,7 +67,7 @@ public class Squeezy extends Player{
 		return farU;
 	}
 	
-	private int getFarD(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+	public int getFarD(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
 		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
 		int farD;
@@ -82,39 +82,44 @@ public class Squeezy extends Player{
 	//for any given letter in the arraylist, fill that letter's arraylist with empty words placemarking all of the different sizes 
 	//and directions of the possible words that could go around that space
 	private ArrayList<Word> findWordLengths(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
-		ArrayList<Word> l=new ArrayList<Word>();	
-		int x,y;
-		x=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getX();
-		y=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getY();
+		ArrayList blanks=new ArrayList();
 		
-		//horizontal
-		int farL, farR;
-		farL=getFarL(lettersFromBoard, letterIndex, b);
-		farR=getFarR(lettersFromBoard, letterIndex, b);
-
-		for(int i=farL;i<=x;i++){
-			for(int k=x;k<farR;k++){
-					int length=farR-farL;
+		int farL, farR, farU, farD;
+		farL=this.getFarL(lettersFromBoard, letterIndex, b);
+		farR=this.getFarR(lettersFromBoard, letterIndex, b);
+		farU=this.getFarU(lettersFromBoard, letterIndex, b);
+		farD=this.getFarD(lettersFromBoard, letterIndex, b);
+		
+		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
+		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
+		
+		for(int i=farL; i<x;i++){
+			for(int j=x;x<=farR;x++){
+				if(j-i<=8){
 					String s="";
-					for(int j=0;j<length;j++)s+=" ";
-					l.add(new Word(s, new Point(i,y), 'H'));
+					for(int e=0;e<j-i;e++){
+						s+=" ";
+					}
+					Word t=new Word(s, new Point(i, y), 'H');
+					blanks.add(t);
+				}
 			}
 		}
 		
-		//vertical
-		int farU=getFarU(lettersFromBoard, letterIndex, b);
-		int farD=getFarU(lettersFromBoard, letterIndex, b);
-
-		for(int i=farU;i<y;i++){
-			for(int k=y;k<farD;k++){
-					int length=farD-farU;
+		for(int i=farU; i<y;i++){
+			for(int j=y;j<=farD;j++){
+				if(j-i<=8){
 					String s="";
-					for(int j=0;j<length;j++)s+=" ";
-					l.add(new Word(s, new Point(i,y), 'V'));
+					for(int e=0;e<j-i;e++){
+						s+=" ";
+					}
+					Word t=new Word(s, new Point(x, i), 'V');
+					blanks.add(t);
+				}
 			}
 		}
-		
-		return l;
+
+		return blanks;
 	}
 	
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
@@ -163,21 +168,20 @@ public class Squeezy extends Player{
 		Squeezy c=new Squeezy(a);
 		Word d=new Word("E", new Point(7,7), 'H');
 		b.addWord(d);
-		ArrayList<ArrayList> e=new ArrayList<ArrayList>();
-		ArrayList f=new ArrayList();
-		f.add(new Letter('A'));
-		f.add(new Point(7,7));
-		e.add(f);
-		for(int i=0;i<c.findWordLengths(e,0,b).size();i++){
-			e.get(0).add(c.findWordLengths(e,0,b).get(i));
+		Word f=new Word("E", new Point(4,7), 'V');
+		b.addWord(f);
+		System.out.println(c.getLettersFromBoard(b).get(0).get(0));
+		System.out.println(c.getLettersFromBoard(b).get(0).get(1));
+		
+		System.out.println(c.getFarL(c.getLettersFromBoard(b), 0, b));
+		System.out.println(c.getFarR(c.getLettersFromBoard(b), 0, b));
+		System.out.println(c.getFarU(c.getLettersFromBoard(b), 0, b));
+		System.out.println(c.getFarD(c.getLettersFromBoard(b), 0, b));
+		
+		for(int i=2;i<c.findWordLengths(c.getLettersFromBoard(b), 0, b).size();i++){
+			System.out.println(((Word)c.findWordLengths(c.getLettersFromBoard(b), 0, b).get(i)).getWord());
 		}
 
-		c.fillWords(e,0,2);
-		for(int i=2;i<e.get(0).size();i++){
-			System.out.print(e.get(0).get(i)+", ");
-			System.out.println(((Word)e.get(0).get(i)).getWord().length());
-		}
-		
 	}
 }
 
