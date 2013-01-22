@@ -13,6 +13,7 @@ public abstract class Player {
 		letters = new ArrayList<Letter>();
 		this.bag = bag;
 		score = 0;
+		draw(7);
 	}
 
 	public abstract Word makeMove(Board b);
@@ -37,7 +38,7 @@ public abstract class Player {
 	}
 
 	public void fill() {
-		while (letters.size() < 7 || bag.getSize() > 0) {
+		while (letters.size() < 7 && bag.getSize() > 0) {
 			letters.add(bag.draw(1).get(0));
 		}
 	}
