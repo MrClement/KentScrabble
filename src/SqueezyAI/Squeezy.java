@@ -9,12 +9,6 @@ public class Squeezy extends Player{
 	
 	public Squeezy(LetterBag a){
 		super(a);
-		letters.clear();
-		letters.add(new Letter('B'));
-		letters.add(new Letter('T'));
-		letters.add(new Letter('S'));
-		letters.add(new Letter('E'));
-		letters.add(new Letter('Y'));
 	}
 	
 	//return ArrayList of ArrayList, with one ArrayList for each letter already placed on the board
@@ -36,20 +30,22 @@ public class Squeezy extends Player{
 		return y;
 	}
 	
-	//for any given letter in the arraylist, fill that letter's arraylist with empty words placemarking all of the different sizes 
-	//and directions of the possible words that could go around that space
-	private ArrayList<Word> findWordLengths(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
-		ArrayList<Word> l=new ArrayList<Word>();	
-		int x,y;
-		x=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getX();
-		y=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getY();
-		//horizontal
+	private int getFarL(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
+		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
+
 		int farL;
 		int c=-1;
-		while(x+c>0&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
+		while(x+c>-1&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
 			c--;
 		}
 		farL=x+c;
+		return farL;
+	}
+	
+	private int getFarR(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
+		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
 		
 		int farR;
 		int d=1;
@@ -57,6 +53,44 @@ public class Squeezy extends Player{
 			d++;
 		}
 		farR=x+d;
+		return farR;
+	}
+	
+	private int getFarU(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
+		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());int farU;
+		int r=-1;
+		while(y+r>0&&b.getArr()[x][y+r].getLetter().getCharacter()=='0'){
+			r--;
+		}
+		farU=y+r;
+		return farU;
+	}
+	
+	private int getFarD(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
+		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
+		int farD;
+		int w=1;
+		while(y+w<15&&b.getArr()[x][y+w].getLetter().getCharacter()=='0'){
+			w++;
+		}
+		farD=x+w;
+		return farD;
+	}
+	
+	//for any given letter in the arraylist, fill that letter's arraylist with empty words placemarking all of the different sizes 
+	//and directions of the possible words that could go around that space
+	private ArrayList<Word> findWordLengths(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
+		ArrayList<Word> l=new ArrayList<Word>();	
+		int x,y;
+		x=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getX();
+		y=(int)((Point)lettersFromBoard.get(letterIndex).get(1)).getY();
+		
+		//horizontal
+		int farL, farR;
+		farL=getFarL(lettersFromBoard, letterIndex, b);
+		farR=getFarR(lettersFromBoard, letterIndex, b);
 
 		for(int i=farL;i<=x;i++){
 			for(int k=x;k<farR;k++){
@@ -68,19 +102,8 @@ public class Squeezy extends Player{
 		}
 		
 		//vertical
-		int farU;
-		int r=-1;
-		while(y+r>0&&b.getArr()[x][y+r].getLetter().getCharacter()=='0'){
-			r--;
-		}
-		farU=y+r;
-		
-		int farD;
-		int w=1;
-		while(y+w<15&&b.getArr()[x][y+w].getLetter().getCharacter()=='0'){
-			w++;
-		}
-		farD=x+w;
+		int farU=getFarU(lettersFromBoard, letterIndex, b);
+		int farD=getFarU(lettersFromBoard, letterIndex, b);
 
 		for(int i=farU;i<y;i++){
 			for(int k=y;k<farD;k++){
