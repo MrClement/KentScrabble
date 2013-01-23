@@ -118,6 +118,7 @@ public class LetterBag {
 			d.add(new Letter(bag.get(j).getCharacter()));
 			if (bag.size() > 0)
 				bag.remove(j);
+			j=r.nextInt(bag.size());
 		}
 		return d;
 	}
