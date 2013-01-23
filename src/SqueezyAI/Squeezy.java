@@ -39,7 +39,8 @@ public class Squeezy extends Player{
 		while(x+c>0&&b.getArr()[x+c][y].getLetter().getCharacter()=='0'){
 			c--;
 		}
-		farL=x+c;
+		farL=x+c+1;
+		if(x+c==0)farL=0;
 		return farL;
 	}
 	
@@ -52,7 +53,8 @@ public class Squeezy extends Player{
 		while(x+d<15&&b.getArr()[x+d][y].getLetter().getCharacter()=='0'){
 			d++;
 		}
-		farR=x+d;
+		farR=x+d-1;
+		if(x+d==14)farR=15;
 		return farR;
 	}
 	
@@ -63,7 +65,9 @@ public class Squeezy extends Player{
 		while(y+r>0&&b.getArr()[x][y+r].getLetter().getCharacter()=='0'){
 			r--;
 		}
-		farU=y+r;
+		farU=y+r+1;
+		if(y+r==0)farU=0;
+
 		return farU;
 	}
 	
@@ -75,7 +79,8 @@ public class Squeezy extends Player{
 		while(y+w<15&&b.getArr()[x][y+w].getLetter().getCharacter()=='0'){
 			w++;
 		}
-		farD=x+w;
+		farD=y+w-1;
+		if(y+w==14)farD=14;
 		return farD;
 	}
 	
@@ -125,7 +130,17 @@ public class Squeezy extends Player{
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
-		ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;		
+		Word a=(Word)lettersFromBoard.get(letterIndex).get(wordIndex);
+		ArrayList<Letter>letters=this.getLetters();
+		for(int i=0;i<getLetters().size();i++){
+			
+		}
+		letters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
+		
+		
+		return null;
+		
+		/*ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;		
 		ArrayList<Letter> possLetters=new ArrayList<Letter>();
 		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
 		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
@@ -155,6 +170,7 @@ public class Squeezy extends Player{
 			}
 		
 		return lettersFromBoardCopy;
+		*/
 	
 	}
 	
@@ -162,8 +178,21 @@ public class Squeezy extends Player{
 		return null;
 	}
 
+	public ArrayList<String> combos(String a, String b, ArrayList<String> c){
+		ArrayList<String> d=c;
+		int length=b.length();
+		if(length==0)d.add(a);
+		else{
+			for(int i=0;i<length;i++){
+				d=(combos(a+b.charAt(i), b.substring(0, i)+b.substring(i), d));
+			}
+		}
+		return d;
+		
+	}
+	
 	public static void main(String[] args){
-		LetterBag a=new LetterBag();
+		/*LetterBag a=new LetterBag();
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
 		Word d=new Word("E", new Point(7,7), 'H');
@@ -181,7 +210,14 @@ public class Squeezy extends Player{
 		for(int i=2;i<c.findWordLengths(c.getLettersFromBoard(b), 0, b).size();i++){
 			System.out.println(((Word)c.findWordLengths(c.getLettersFromBoard(b), 0, b).get(i)).getWord());
 		}
-
+		*/
+		
+		LetterBag a=new LetterBag();
+		Board b=new Board();
+		Squeezy c=new Squeezy(a);
+		
+		ArrayList<String> d=c.combos("", "bitches", new ArrayList<String>());
+		
 	}
 }
 
