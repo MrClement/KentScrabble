@@ -70,5 +70,9 @@ public class Word {
 	public char getDirection() {
 		return direction;
 	}
+	
+	public String toString() {
+		return this.getWord();
+	}
 
 }
