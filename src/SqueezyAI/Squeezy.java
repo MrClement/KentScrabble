@@ -175,6 +175,17 @@ public class Squeezy extends Player{
 	}
 	
 	public Word makeMove(Board b){
+		ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+		a=getLettersFromBoard(b);
+		for(int i=0;i<a.size();i++){
+			a.add(i, findWordLengths(a, i, b));
+			a.remove(i+1);
+		}
+		for(int i=0;i<a.size();i++){
+			for(int k=0;k<a.get(i).size();k++){
+				
+			}
+		}
 		return null;
 	}
 
@@ -207,7 +218,7 @@ public class Squeezy extends Player{
 		System.out.println(c.getFarU(c.getLettersFromBoard(b), 0, b));
 		System.out.println(c.getFarD(c.getLettersFromBoard(b), 0, b));
 		
-		for(int i=2;i<c.findWordLengths(c.getLettersFromBoard(b), 0, b).size();i++){
+		for(int i=2;i<c.findWordLengths(c.getL[LettersFromBoard(b), 0, b).size();i++){
 			System.out.println(((Word)c.findWordLengths(c.getLettersFromBoard(b), 0, b).get(i)).getWord());
 		}
 		*/
