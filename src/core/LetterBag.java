@@ -92,7 +92,7 @@ public class LetterBag {
 		// 2 point letters until number is reached
 		else if (numLetters < 100) {
 			for (int i = 0; i < 100 - numLetters; i++) {
-				Random r = new Random();
+				Random r = new Random((long) (Math.random() * 466983456));
 				int q = r.nextInt(bag.size());
 				while (bag.get(q).getVal() != 1 || bag.get(q).getVal() != 2) {
 					q = r.nextInt(bag.size());
