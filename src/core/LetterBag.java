@@ -44,7 +44,7 @@ public class LetterBag {
 				bag.add(new Letter('Z'));
 			}
 			if (i < 3) {
-				bag.add(new Letter('0'));
+				bag.add(new Letter('1'));
 				bag.add(new Letter('B'));
 				bag.add(new Letter('C'));
 				bag.add(new Letter('M'));
