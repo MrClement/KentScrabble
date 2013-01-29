@@ -6,9 +6,9 @@ public class Space {
 				// 3 is double word, 4 is triple word
 
 	public Space(int type) {
-		Letter blank=new Letter ('0');
-		this.letter=blank;
-		this.type=type;
+		Letter blank = new Letter('0');
+		this.letter = blank;
+		this.type = type;
 	}
 
 	public Space(int type, Letter letter) {
@@ -45,5 +45,11 @@ public class Space {
 
 	public void setLetter(Letter l) {
 		this.letter = l;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Space other = (Space) obj;
+		return (other.getLetter().getCharacter() == getLetter().getCharacter() && other.getTypeInt() == getTypeInt());
 	}
 }
