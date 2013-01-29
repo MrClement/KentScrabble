@@ -127,6 +127,14 @@ public class Squeezy extends Player{
 		return blanks;
 	}
 	
+	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
+		return null;
+	}
+	
+	private Word bestWord(ArrayList<Word> a)
+	{
+		return null;
+	}
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
@@ -174,22 +182,34 @@ public class Squeezy extends Player{
 	
 	}
 	
+	//source - le internet - http://stackoverflow.com/questions/4950085/permutations-of-a-string
+	public ArrayList<String> perm(ArrayList<String> a, String b, String c){
+		ArrayList<String>d=a;
+	    if(c.length() <= 1)
+	    		d.add(b+c);
+	    else{
+	        for(int i=0; i <c.length();i++){
+	           perm(d, b+c.charAt(i), c.substring(0, i) + c.substring(i+1, c.length()));
+	        }           
+	    }
+	    return d;
+	}
+	
 	public Word makeMove(Board b){
+		ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+		a=getLettersFromBoard(b);
+		for(int i=0;i<a.size();i++){
+			a.add(i, findWordLengths(a, i, b));
+			a.remove(i+1);
+		}
+		for(int i=0;i<a.size();i++){
+			for(int k=0;k<a.get(i).size();k++){
+				
+			}
+		}
 		return null;
 	}
 
-	public ArrayList<String> combos(String a, String b, ArrayList<String> c){
-		ArrayList<String> d=c;
-		int length=b.length();
-		if(length==0)d.add(a);
-		else{
-			for(int i=0;i<length;i++){
-				d=(combos(a+b.charAt(i), b.substring(0, i)+b.substring(i), d));
-			}
-		}
-		return d;
-		
-	}
 	
 	public static void main(String[] args){
 		/*LetterBag a=new LetterBag();
@@ -207,7 +227,7 @@ public class Squeezy extends Player{
 		System.out.println(c.getFarU(c.getLettersFromBoard(b), 0, b));
 		System.out.println(c.getFarD(c.getLettersFromBoard(b), 0, b));
 		
-		for(int i=2;i<c.findWordLengths(c.getLettersFromBoard(b), 0, b).size();i++){
+		for(int i=2;i<c.findWordLengths(c.getL[LettersFromBoard(b), 0, b).size();i++){
 			System.out.println(((Word)c.findWordLengths(c.getLettersFromBoard(b), 0, b).get(i)).getWord());
 		}
 		*/
@@ -216,7 +236,10 @@ public class Squeezy extends Player{
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
 		
-		ArrayList<String> d=c.combos("", "bitches", new ArrayList<String>());
+		for(int i=0;i<c.perm(new ArrayList<String>(), "", "horse").size();i++){
+			System.out.println(c.perm(new ArrayList<String>(), "", "horse").get(i));
+		}
+		
 		
 	}
 }
