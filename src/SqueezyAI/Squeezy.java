@@ -174,6 +174,19 @@ public class Squeezy extends Player{
 	
 	}
 	
+	//source - le internet - http://stackoverflow.com/questions/4950085/permutations-of-a-string
+	public ArrayList<String> perm(ArrayList<String> a, String b, String c){
+		ArrayList<String>d=a;
+	    if(c.length() <= 1)
+	    		d.add(b+c);
+	    else{
+	        for(int i=0; i <c.length();i++){
+	           perm(d, b+c.charAt(i), c.substring(0, i) + c.substring(i+1, c.length()));
+	        }           
+	    }
+	    return d;
+	}
+	
 	public Word makeMove(Board b){
 		ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 		a=getLettersFromBoard(b);
@@ -189,18 +202,6 @@ public class Squeezy extends Player{
 		return null;
 	}
 
-	public ArrayList<String> combos(String a, String b, ArrayList<String> c){
-		ArrayList<String> d=c;
-		int length=b.length();
-		if(length==0)d.add(a);
-		else{
-			for(int i=0;i<length;i++){
-				d=(combos(a+b.charAt(i), b.substring(0, i)+b.substring(i), d));
-			}
-		}
-		return d;
-		
-	}
 	
 	public static void main(String[] args){
 		/*LetterBag a=new LetterBag();
@@ -227,7 +228,10 @@ public class Squeezy extends Player{
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
 		
-		ArrayList<String> d=c.combos("", "bitches", new ArrayList<String>());
+		for(int i=0;i<c.perm(new ArrayList<String>(), "", "horse").size();i++){
+			System.out.println(c.perm(new ArrayList<String>(), "", "horse").get(i));
+		}
+		
 		
 	}
 }
