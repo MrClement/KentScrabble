@@ -1,5 +1,8 @@
 package core;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 /**
@@ -47,4 +50,20 @@ public class Dictionary {
 		return allWords;
 	}
 
+	public ArrayList<String> allStringsWithLetters(ArrayList<Character> letters) {
+		ArrayList<String> foundStrings = new ArrayList<>();
+		for (Entry<String, Integer> e : allWords.entrySet()) {
+			String temp = e.getKey();
+			boolean found = true;
+			for (Character character : letters) {
+				if (!(temp.indexOf(Character.toUpperCase(character)) > 0)) {
+					found = false;
+				}
+			}
+			if (found) {
+				foundStrings.add(temp);
+			}
+		}
+		return foundStrings;
+	}
 }

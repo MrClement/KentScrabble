@@ -1,5 +1,7 @@
 package core;
 
+import java.util.ArrayList;
+
 public class TestDriver {
 
 	/**
@@ -9,8 +11,12 @@ public class TestDriver {
 	 */
 	public static void main(String[] args) {
 		Dictionary d = new Dictionary();
-		System.out.println(d.isWord("wok"));
+		System.out.println(d.isWord("aa"));
+		ArrayList<Character> temp = new ArrayList<>();
+		temp.add('q');
+		temp.add('z');
+		System.out.println(temp);
+		System.out.println(d.allStringsWithLetters(temp));
 
 	}
-
 }

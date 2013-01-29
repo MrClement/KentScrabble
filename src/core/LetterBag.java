@@ -44,7 +44,7 @@ public class LetterBag {
 				bag.add(new Letter('Z'));
 			}
 			if (i < 3) {
-				bag.add(new Letter('0'));
+				bag.add(new Letter('1'));
 				bag.add(new Letter('B'));
 				bag.add(new Letter('C'));
 				bag.add(new Letter('M'));
@@ -92,7 +92,7 @@ public class LetterBag {
 		// 2 point letters until number is reached
 		else if (numLetters < 100) {
 			for (int i = 0; i < 100 - numLetters; i++) {
-				Random r = new Random();
+				Random r = new Random((long) (Math.random() * 466983456));
 				int q = r.nextInt(bag.size());
 				while (bag.get(q).getVal() != 1 || bag.get(q).getVal() != 2) {
 					q = r.nextInt(bag.size());
@@ -112,9 +112,9 @@ public class LetterBag {
 	 */
 	public ArrayList<Letter> draw(int numLetters) {
 		ArrayList<Letter> d = new ArrayList<Letter>();
-		Random r = new Random();
-		int j = r.nextInt(bag.size());
 		for (int i = 0; i < numLetters; i++) {
+			Random r = new Random();
+			int j = r.nextInt(bag.size());
 			d.add(new Letter(bag.get(j).getCharacter()));
 			if (bag.size() > 0)
 				bag.remove(j);
