@@ -127,6 +127,14 @@ public class Squeezy extends Player{
 		return blanks;
 	}
 	
+	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
+		return null;
+	}
+	
+	private Word bestWord(ArrayList<Word> a)
+	{
+		return null;
+	}
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
