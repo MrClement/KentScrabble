@@ -112,9 +112,9 @@ public class LetterBag {
 	 */
 	public ArrayList<Letter> draw(int numLetters) {
 		ArrayList<Letter> d = new ArrayList<Letter>();
-		Random r = new Random();
-		int j = r.nextInt(bag.size());
 		for (int i = 0; i < numLetters; i++) {
+			Random r = new Random();
+			int j = r.nextInt(bag.size());
 			d.add(new Letter(bag.get(j).getCharacter()));
 			if (bag.size() > 0)
 				bag.remove(j);
