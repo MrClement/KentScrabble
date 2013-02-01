@@ -1,4 +1,5 @@
 package core;
+
 import java.awt.Point;
 
 public class Word {
@@ -70,7 +71,19 @@ public class Word {
 	public char getDirection() {
 		return direction;
 	}
-	
+
+	public void setLocation(int x, int y) {
+		location.setLocation(x, y);
+	}
+
+	public void setLocation(Point p) {
+		location.setLocation(p);
+	}
+
+	public void setDirection(char direction) {
+		this.direction = direction;
+	}
+
 	public String toString() {
 		return this.getWord();
 	}
