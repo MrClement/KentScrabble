@@ -3,9 +3,10 @@ import core.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 public class Squeezy extends Player{
-	SqueezyDictionary dic=new SqueezyDictionary();
+	Dictionary dic=new Dictionary();
 	
 	public Squeezy(LetterBag a){
 		super(a);
@@ -128,7 +129,41 @@ public class Squeezy extends Player{
 	}
 	
 	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
-		return null;
+		ArrayList<Word> a=new ArrayList<Word>();
+		int length = blank.getWord().length();
+		int occ=0;
+		while(blank.getWord().charAt(occ)==' '){
+			occ++;
+		}
+		
+		char ch=blank.getWord().charAt(occ);
+		
+		for(Entry<String, Integer> e:dic.getAllWords().entrySet() ){
+			if(e.getKey().length()==length){
+				char cha=e.getKey().charAt(occ);
+				if(ch==cha){
+					ArrayList<Letter>b=new ArrayList<Letter>();
+					for(int k=0;k<letters.size();k++)b.add(letters.get(k));
+					int i=0;
+					boolean ff=true;
+					while(i<length&&ff==true){
+						Letter ll=new Letter(e.getKey().charAt(i));
+						if(b.contains(ll)){
+							b.remove(ll);
+						}
+						else ff=false;
+						i++;
+					}
+					
+					if(ff==true){
+						a.add(new Word(e.getKey(), blank.getLocation(), blank.getDirection()));
+					}
+				}
+			}
+		}
+		
+		return a;
+	
 	}
 	
 	private Word bestWord(ArrayList<Word> a)
@@ -232,7 +267,7 @@ public class Squeezy extends Player{
 		}
 		*/
 		
-		LetterBag a=new LetterBag();
+		/*LetterBag a=new LetterBag();
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
 		
@@ -240,6 +275,22 @@ public class Squeezy extends Player{
 			System.out.println(c.perm(new ArrayList<String>(), "", "horse").get(i));
 		}
 		
+		*/
+		
+		LetterBag a=new LetterBag();
+		Board b=new Board();
+		Squeezy c=new Squeezy(a);
+		
+		ArrayList<Letter>d=new ArrayList<Letter>();
+		d.add(new Letter('C'));
+		d.add(new Letter('T'));
+		d.add(new Letter('S'));
+		Word s=new Word(" A  ", new Point(0,0), 'H');
+		System.out.println(c.getPossWords(s,d).size());
+		for(int i=0;i<c.getPossWords(s, d).size();i++){
+			System.out.println(c.getPossWords(s,d).get(i));
+			
+		}
 		
 	}
 }
