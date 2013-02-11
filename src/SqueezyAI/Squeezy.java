@@ -173,9 +173,30 @@ public class Squeezy extends Player{
 	//for any given word length and direction for any given letter on the board, find the word of the highest point value
 	//that includes only letters from squeezy's tray and the letter placed on the board
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
+		
+		//gets current word, ex: "11a1" (1=blank)
 		Word a=(Word)lettersFromBoard.get(letterIndex).get(wordIndex);
+		//this letter cannot be counted for double letters, etc.
+		int indexOfCurrLetterAlreadyPlayed= -1;
+		for(int i=0; i<a.toString().length(); i++){
+			if(a.toString().substring(i,i+1)!="1") indexOfCurrLetterAlreadyPlayed= i;
+		}
+		
+		ArrayList<Word> legalWordsOfLengthX = new ArrayList<Word>();
+		legalWordsOfLengthX = getPossWords(a,this.getLetters());
+		
+		int numLettersPerWord= legalWordsOfLengthX.get(0).getWord().length();
 		ArrayList<Letter>letters=this.getLetters();
 		for(int i=0;i<getLetters().size();i++){
+		
+			//find direction of word
+			//look in first letter location for doub/trip letter/word, add integer value multiplied right away by a doub/trip
+			//letter, or make booleans doub/trip letter score to be multiplied in
+			//then move over and check location based
+			//on direction so have a location (0,x) and keep doing x+/-1
+			//***can't check status of letter already on board (check for that)
+			//add up total word then return arraylist of arraylistsvalues, store string word in 1st, location of first
+			//letter in 2nd, value in 3rd. (**where does location go?)
 			
 		}
 		letters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
@@ -216,7 +237,6 @@ public class Squeezy extends Player{
 		*/
 	
 	}
-	
 	//source - le internet - http://stackoverflow.com/questions/4950085/permutations-of-a-string
 	public ArrayList<String> perm(ArrayList<String> a, String b, String c){
 		ArrayList<String>d=a;
