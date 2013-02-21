@@ -175,6 +175,8 @@ public class Squeezy extends Player{
 	private ArrayList<ArrayList> fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
 		
 		//gets current word, ex: "11a1" (1=blank)
+		Board randBoard=new Board();
+		Space[][] tempSpaceArray=randBoard.getArr();
 		Word a=(Word)lettersFromBoard.get(letterIndex).get(wordIndex);
 		//this letter cannot be counted for double letters, etc.
 		int indexOfCurrLetterAlreadyPlayed= -1;
@@ -184,24 +186,91 @@ public class Squeezy extends Player{
 		
 		ArrayList<Word> legalWordsOfLengthX = new ArrayList<Word>();
 		legalWordsOfLengthX = getPossWords(a,this.getLetters());
-		
 		int numLettersPerWord= legalWordsOfLengthX.get(0).getWord().length();
-		ArrayList<Letter>letters=this.getLetters();
-		for(int i=0;i<getLetters().size();i++){
+		//add in arraylist of arraylist word in first index and score in 2nd index
+		for(int i=0; i<legalWordsOfLengthX.size(); i++)
+		{
+			boolean isDoubleWord=false;
+			boolean isTripleWord=false;
+			int totalPointValue= 0;
+			char dir = legalWordsOfLengthX.get(i).getDirection();
+			Point loc =legalWordsOfLengthX.get(i).getLocation();
+			for(int j=0; j<numLettersPerWord; j++)
+			{
+				if(j==indexOfCurrLetterAlreadyPlayed)
+				{
+					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+					if(j!=numLettersPerWord-1)j++;
+				}
+				
+				else if (dir== 'H'){
+					loc.setLocation(loc.getX()+j,loc.getY());
+					String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
+					if(typeOfSpace!="Normal")
+					{
+						if(typeOfSpace=="Double Word"){
+							isDoubleWord=true;
+							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
+						if(typeOfSpace=="Triple Word"){
+							isTripleWord=true;
+							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
+						}
+						if(typeOfSpace=="Double Letter"){
+							int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+							totalPointValue+=timestwo;
+						}
+						if(typeOfSpace=="Triple Letter"){
+							int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+							totalPointValue+=timesthree;
+						}
+					}
+					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+				}
+				else if (dir=='V'){
+					loc.setLocation(loc.getX(),loc.getY()+j);
+					String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
+					if(typeOfSpace!="Normal")
+					{
+						if(typeOfSpace=="Double Word"){
+							isDoubleWord=true;
+							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
+						if(typeOfSpace=="Triple Word"){
+							isTripleWord=true;
+							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
+						}
+						if(typeOfSpace=="Double Letter"){
+							int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+							totalPointValue+=timestwo;
+						}
+						if(typeOfSpace=="Triple Letter"){
+							int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+							totalPointValue+=timesthree;
+						}
+					}
+					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+				}
+				
+				if (isDoubleWord) totalPointValue=totalPointValue*2;
+				if (isTripleWord) totalPointValue=totalPointValue*3;
+				
+				}
+				
+			}
 		
-			//find direction of word
-			//look in first letter location for doub/trip letter/word, add integer value multiplied right away by a doub/trip
-			//letter, or make booleans doub/trip letter score to be multiplied in
-			//then move over and check location based
-			//on direction so have a location (0,x) and keep doing x+/-1
-			//***can't check status of letter already on board (check for that)
-			//add up total word then return arraylist of arraylistsvalues, store string word in 1st, location of first
-			//letter in 2nd, value in 3rd. (**where does location go?)
-			
-		}
-		letters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
+		// LINE OF CODE TO ADD WORD AND ITS POINT VALUE IN AN ARRAY... OR AM I FINDING JUST HIGHEST POINT VALUE WORD?
 		
 		
+		
+		
+		
+		//find direction of word
+		//look in first letter location for doub/trip letter/word, add integer value multiplied right away by a doub/trip
+		//letter, or make booleans doub/trip letter score to be multiplied in
+		//then move over and check location based
+		//on direction so have a location (0,x) and keep doing x+/-1
+		//***can't check status of letter already on board (check for that)
+		//add up total word then return arraylist of arraylistsvalues, store string word in 1st, location of first
+		//letter in 2nd, value in 3rd. (**where does location go?)
 		return null;
 		
 		/*ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;		
