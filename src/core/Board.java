@@ -82,6 +82,18 @@ public class Board implements Serializable {
 		arr[11][14] = new Space(1);
 	}
 
+	public Board(Board other) {
+		arr = new Space[15][15];
+		Space[][] temp = other.getArr();
+		for (int i = 0; i < temp.length; i++) {
+			for (int j = 0; j < temp[i].length; j++) {
+				Space s = temp[i][j];
+				arr[i][j] = new Space(s.getTypeInt(), new Letter(s.getLetter().getCharacter()));
+			}
+
+		}
+	}
+
 	public Space[][] getArr() {
 		return arr;
 	}
