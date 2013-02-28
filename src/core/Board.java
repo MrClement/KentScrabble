@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Board implements Serializable {
 
 	private static final long serialVersionUID = 7807581621565148545L;
-	Space[][] arr;
+	private Space[][] arr;
 
 	public Board() {
 		arr = new Space[15][15];
@@ -110,11 +110,11 @@ public class Board implements Serializable {
 		for (int i = 0; i < word.length; i++) {
 			arr[x][y].setLetter(word[i]);
 			if (Character.toUpperCase(w.getDirection()) == 'H') {
-				y++;
-			} else {
 				x++;
+			} else {
+				y++;
 			}
+
 		}
 	}
-
 }

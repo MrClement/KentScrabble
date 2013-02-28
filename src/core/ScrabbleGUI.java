@@ -29,45 +29,65 @@ public class ScrabbleGUI {
 
 	public ScrabbleGUI() {
 		frame = new JFrame();
-		frame.setSize(675,675);
+		frame.setSize(675, 675);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		/*
-		Board test = new Board();
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] =  new Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
-		*/
-		//showBoard(test);
+		 * Board test = new Board();
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 * test.arr[(int)(Math.random()*13)][(int)(Math.random()*13)] = new
+		 * Space(0, new Letter((char) ('A' + (int)(Math.random()*24))));
+		 */
+		// showBoard(test);
 		showBoard(null);
 	}
 
-	
-	//Colors
-	
-	
+	// Colors
+
 	public void showBoard(Board b) {
-		
-		if(b == null)b = new Board();
-		
+
+		if (b == null)
+			b = new Board();
+
 		int i = 15;
 		int j = 15;
 
@@ -79,19 +99,32 @@ public class ScrabbleGUI {
 		frame.getContentPane().removeAll();
 		frame.getContentPane().validate();
 		frame.getContentPane().repaint();
-		
+
 		frame.setLayout(layout);
-		
+
 		for (int m = 0; m < i; m++) {
 			for (int n = 0; n < j; n++) {
-				panelHolder[m][n] = new JPanel(new GridLayout()); //GridLayout here simply a way to make there be no padding for tiles. Strange workaround, but it works
-				
-				// 0 is normal space, 1 is double letter, 2 is triple letter,
-				 // 3 is double word, 4 is triple word
-				
-				Space sp = b.arr[m][n];
+				panelHolder[m][n] = new JPanel(new GridLayout()); // GridLayout
+																	// here
+																	// simply a
+																	// way to
+																	// make
+																	// there be
+																	// no
+																	// padding
+																	// for
+																	// tiles.
+																	// Strange
+																	// workaround,
+																	// but it
+																	// works
 
-				switch(sp.type){
+				// 0 is normal space, 1 is double letter, 2 is triple letter,
+				// 3 is double word, 4 is triple word
+
+				Space sp = b.getArr()[n][m];
+
+				switch (sp.type) {
 					case 0:
 						panelHolder[m][n].setBackground(Color.WHITE);
 						break;
@@ -111,54 +144,57 @@ public class ScrabbleGUI {
 						panelHolder[m][n].setBackground(Color.BLACK);
 						break;
 				}
-				
-				boolean center = (m==n && n==7);
+
+				boolean center = (m == n && n == 7);
 				boolean occupied = sp.getLetter().getCharacter() != '0';
-				
-				//Evaluate space to see if it has an associated letter, if so, dump the image into the panel
-				if(occupied && !center) {
+
+				// Evaluate space to see if it has an associated letter, if so,
+				// dump the image into the panel
+				if (occupied && !center) {
 					String resourceName = "";
-					//There's an actual letter here, let's stick the image in
+					// There's an actual letter here, let's stick the image in
 					char uppercase = Character.toUpperCase(sp.getLetter().getCharacter());
-					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
+					if (uppercase >= 'A' && uppercase <= 'Z')
+						resourceName = uppercase + resourceName;
 					resourceName = resourceName + ".png";
-					
-					if((m==n && n==7))resourceName = "star.png";
-					
+
+					if ((m == n && n == 7))
+						resourceName = "star.png";
+
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
 					label.setIcon(icon);
-					
+
 					panelHolder[m][n].add(label);
 				}
-				
-				if(center && occupied) {
+
+				if (center && occupied) {
 					String resourceName = "";
-					//There's an actual letter here, let's stick the image in
+					// There's an actual letter here, let's stick the image in
 					char uppercase = Character.toUpperCase(sp.getLetter().getCharacter());
-					if(uppercase >= 'A' && uppercase <= 'Z')resourceName = uppercase + resourceName;
+					if (uppercase >= 'A' && uppercase <= 'Z')
+						resourceName = uppercase + resourceName;
 					resourceName = resourceName + ".png";
-					
+
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
 					label.setIcon(icon);
-					
+
 					panelHolder[m][n].add(label);
-				}
-				else if (center && !occupied) {
+				} else if (center && !occupied) {
 					String resourceName = "star.png";
-					
+
 					ImageIcon icon = createImageIcon(resourceName);
 					JLabel label = new JLabel();
 					label.setIcon(icon);
-					
+
 					panelHolder[m][n].add(label);
 				}
-				
+
 				frame.add(panelHolder[m][n]);
 			}
 		}
-		
+
 	}
 
 	protected ImageIcon createImageIcon(String path) {
@@ -175,10 +211,8 @@ public class ScrabbleGUI {
 	 * Initialize the contents of the frame.
 	 */
 
-
 	public JFrame getFrame() {
 		return frame;
 	}
-
 
 }

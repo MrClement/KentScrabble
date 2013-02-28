@@ -11,7 +11,7 @@ public class TestDriver {
 	 */
 	public static void main(String[] args) {
 		Dictionary d = new Dictionary();
-		System.out.println(d.isWord("aa"));
+		System.out.println(d.isWord(""));
 		ArrayList<Character> temp = new ArrayList<>();
 		temp.add('q');
 		temp.add('z');
