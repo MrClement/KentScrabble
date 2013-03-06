@@ -93,4 +93,9 @@ public class Letter {
 	public boolean equals(Object o) {
 		return ((Letter) o).getCharacter() == getCharacter();
 	}
+
+	public int hashCode() {
+		return getCharacter();
+
+	}
 }
