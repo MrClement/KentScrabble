@@ -85,8 +85,12 @@ public class Letter {
 			setVal();
 		}
 	}
-	
+
 	public String toString() {
 		return Character.toString(letter);
+	}
+
+	public boolean equals(Object o) {
+		return ((Letter) o).getCharacter() == getCharacter();
 	}
 }
