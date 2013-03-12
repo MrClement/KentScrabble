@@ -128,44 +128,6 @@ public class Squeezy extends Player{
 		return blanks;
 	}
 	
-	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
-		ArrayList<Word> a=new ArrayList<Word>();
-		int length = blank.getWord().length();
-		int occ=0;
-		while(blank.getWord().charAt(occ)==' '){
-			occ++;
-		}
-		
-		char ch=blank.getWord().charAt(occ);
-		
-		for(Entry<String, Integer> e:dic.getAllWords().entrySet() ){
-			if(e.getKey().length()==length){
-				char cha=e.getKey().charAt(occ);
-				if(ch==cha){
-					ArrayList<Letter>b=new ArrayList<Letter>();
-					for(int k=0;k<letters.size();k++)b.add(letters.get(k));
-					int i=0;
-					boolean ff=true;
-					while(i<length&&ff==true){
-						Letter ll=new Letter(e.getKey().charAt(i));
-						if(b.contains(ll)){
-							b.remove(ll);
-						}
-						else ff=false;
-						i++;
-					}
-					
-					if(ff==true){
-						a.add(new Word(e.getKey(), blank.getLocation(), blank.getDirection()));
-					}
-				}
-			}
-		}
-		
-		return a;
-	
-	}
-	
 	private Word bestWord(ArrayList<Word> a)
 	{
 		return null;
@@ -306,6 +268,8 @@ public class Squeezy extends Player{
 		*/
 	
 	}
+
+	
 	//source - le internet - http://stackoverflow.com/questions/4950085/permutations-of-a-string
 	public ArrayList<String> perm(ArrayList<String> a, String b, String c){
 		ArrayList<String>d=a;
@@ -317,6 +281,41 @@ public class Squeezy extends Player{
 	        }           
 	    }
 	    return d;
+	}
+	
+	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
+		int letIndex=0;
+		while(blank.getWord().charAt(letIndex)=='1'){
+			letIndex++;
+		}
+		
+		
+		ArrayList<Letter> a=new ArrayList<Letter>();
+		for(int i=0;i<letters.size();i++){
+			a.add(letters.get(i));
+		}
+		a.add(new Letter(blank.getWord().charAt(letIndex)));
+		
+		String temp="";
+		for(int i=0;i<a.size();i++){
+			temp+=a.get(i).getCharacter()+"";
+		}
+		
+		ArrayList<String> b=perm(new ArrayList<String>(), "", temp);
+		
+		ArrayList<Word> f=new ArrayList<Word>();
+		Dictionary d=new Dictionary();
+		for(int i=0;i<b.size();i++){
+			if(b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
+				if(d.isWord(b.get(i))!=-1){
+					f.add(new Word(b.get(i)));
+				}
+			}
+		}
+		
+		return f;
+		
+	
 	}
 	
 	public Word makeMove(Board b){
@@ -374,13 +373,15 @@ public class Squeezy extends Player{
 		d.add(new Letter('C'));
 		d.add(new Letter('T'));
 		d.add(new Letter('S'));
-		Word s=new Word(" A  ", new Point(0,0), 'H');
-		System.out.println(c.getPossWords(s,d).size());
-		for(int i=0;i<c.getPossWords(s, d).size();i++){
-			System.out.println(c.getPossWords(s,d).get(i));
-			
+		d.add(new Letter('E'));
+		d.add(new Letter('R'));
+
+
+		Word s=new Word("1A1111", new Point(0,0), 'H');
+		ArrayList<Word> g=c.getPossWords(s, d);
+		for(int i=0;i<g.size();i++){
+			System.out.println(g.get(i).getWord());
 		}
-		
 	}
 }
 

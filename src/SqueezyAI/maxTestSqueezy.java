@@ -5,6 +5,7 @@ import core.LetterBag;
 import core.ScrabbleGUI;
 import core.Word;
 import java.awt.EventQueue;
+import java.awt.Point;
 
 
 public class maxTestSqueezy {
@@ -31,7 +32,7 @@ public class maxTestSqueezy {
 		
 		Squeezy s = new Squeezy(new LetterBag());
 		Word word = s.makeMove(b);
-		b.addWord(word);
+		b.addWord(new Word("word", new Point(7,7),'V'));
 		w.showBoard(b);
 
 	}
