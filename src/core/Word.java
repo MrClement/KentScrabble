@@ -28,11 +28,12 @@ public class Word {
 	}
 
 	public Word(Letter[] a, Point loc, char dir) {
+		word = "";
 		wordL = new Letter[a.length];
 		for (int i = 0; i < a.length; i++) {
 			wordL[i] = a[i];
+			word += a[i].getCharacter();
 		}
-
 		val = valCalc();
 		location = new Point(loc);
 		direction = dir;

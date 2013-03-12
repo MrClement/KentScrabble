@@ -90,10 +90,12 @@ public class Letter {
 		return Character.toString(letter);
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		return ((Letter) o).getCharacter() == getCharacter();
 	}
 
+	@Override
 	public int hashCode() {
 		return getCharacter();
 
