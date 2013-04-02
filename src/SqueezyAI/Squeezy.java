@@ -1,6 +1,7 @@
 package SqueezyAI;
 import core.*;
 
+import java.awt.EventQueue;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -85,8 +86,6 @@ public class Squeezy extends Player{
 		return farD;
 	}
 	
-	//for any given letter in the arraylist, fill that letter's arraylist with empty words placemarking all of the different sizes 
-	//and directions of the possible words that could go around that space
 	private ArrayList<Word> findWordLengths(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		ArrayList blanks=new ArrayList();
 		
@@ -128,12 +127,18 @@ public class Squeezy extends Player{
 		return blanks;
 	}
 	
-	private Word bestWord(ArrayList<Word> a)
-	{
-		return null;
+	private ArrayList<ArrayList> fillAllWords(ArrayList<ArrayList> lettersFromBoard){
+		ArrayList<ArrayList> t=new ArrayList<ArrayList>();
+		for(int letterIndex=0;letterIndex<lettersFromBoard.size();letterIndex++){
+			t.add(new ArrayList());
+			t.get(letterIndex).add(lettersFromBoard.get(letterIndex).get(0));
+			for(int wordIndex=0;wordIndex<lettersFromBoard.get(letterIndex).size();wordIndex++){
+				t.get(letterIndex).add(fillWords(lettersFromBoard, letterIndex, wordIndex));
+			}
+		}
+		return t;
 	}
-	//for any given word length and direction for any given letter on the board, find the word of the highest point value
-	//that includes only letters from squeezy's tray and the letter placed on the board
+	
 	private Word fillWords(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
 		
 		//gets current word, ex: "11a1" (1=blank)
@@ -226,40 +231,8 @@ public class Squeezy extends Player{
 		
 		
 		return highestWord;
-		
-		/*ArrayList<ArrayList>lettersFromBoardCopy=lettersFromBoard;		
-		ArrayList<Letter> possLetters=new ArrayList<Letter>();
-		for(int i=0;i<this.getLetters().size();i++)possLetters.add(this.getLetters().get(i));
-		possLetters.add((Letter)lettersFromBoard.get(letterIndex).get(0));
-		for(int i=2;i<lettersFromBoard.get(letterIndex).size();i++){
-			ArrayList<Word> wordsOfSize=new ArrayList<Word>();
-			ArrayList<Word> possWords=new ArrayList<Word>();
-			for(String s:dic.getAllWords()){
-				if(((Word)lettersFromBoard.get(letterIndex).get(i)).getWord().length()==s.length())wordsOfSize.add(new Word(s));
-			}
-			for(Word s:wordsOfSize){
-				boolean wo=true;
-				for(int ch=0;ch<s.getWord().length();ch++){
-					if(!possLetters.contains(new Letter(s.getWord().charAt(ch)))){
-						wo=false;
-						break;
-					}
-				}
-				
-				if (wo=true)possWords.add(s);
-			}
-			
-			int maxIndex=0;
-			int max=0;
-			for(Word s:possWords)if(s.getVal()>max)maxIndex=possWords.indexOf(s);
-			lettersFromBoardCopy.get(letterIndex).remove(wordIndex);
-			lettersFromBoardCopy.get(letterIndex).add(wordIndex, possWords.get(maxIndex));
-			}
-		
-		return lettersFromBoardCopy;
-		*/
-	
 	}
+	
 	//source - le internet - http://stackoverflow.com/questions/4950085/permutations-of-a-string
 	public ArrayList<String> perm(ArrayList<String> a, String b, String c){
 		ArrayList<String>d=a;
@@ -317,61 +290,39 @@ public class Squeezy extends Player{
 		}
 		for(int i=0;i<a.size();i++){
 			for(int k=0;k<a.get(i).size();k++){
-				
+				a.get(i).set(k, fillWords(a,i,k));
+				System.out.println(a.get(i).get(k));
 			}
 		}
 		return null;
 	}
 
+	public static void main(String[] args) {
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ScrabbleGUI window = new ScrabbleGUI();
+					window.getFrame().setVisible(true);
+					window.getFrame().setTitle("Scarble");
+					cont(window);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});	
+	}
+		
+	private static void cont(ScrabbleGUI w) {
 	
-	public static void main(String[] args){
-		/*LetterBag a=new LetterBag();
-		Board b=new Board();
-		Squeezy c=new Squeezy(a);
-		Word d=new Word("E", new Point(7,7), 'H');
-		b.addWord(d);
-		Word f=new Word("E", new Point(4,7), 'V');
-		b.addWord(f);
-		System.out.println(c.getLettersFromBoard(b).get(0).get(0));
-		System.out.println(c.getLettersFromBoard(b).get(0).get(1));
-		
-		System.out.println(c.getFarL(c.getLettersFromBoard(b), 0, b));
-		System.out.println(c.getFarR(c.getLettersFromBoard(b), 0, b));
-		System.out.println(c.getFarU(c.getLettersFromBoard(b), 0, b));
-		System.out.println(c.getFarD(c.getLettersFromBoard(b), 0, b));
-		
-		for(int i=2;i<c.findWordLengths(c.getL[LettersFromBoard(b), 0, b).size();i++){
-			System.out.println(((Word)c.findWordLengths(c.getLettersFromBoard(b), 0, b).get(i)).getWord());
-		}
-		*/
-		
-		/*LetterBag a=new LetterBag();
-		Board b=new Board();
-		Squeezy c=new Squeezy(a);
-		
-		for(int i=0;i<c.perm(new ArrayList<String>(), "", "horse").size();i++){
-			System.out.println(c.perm(new ArrayList<String>(), "", "horse").get(i));
-		}
-		
-		*/
-		
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		Squeezy c=new Squeezy(a);
-		
-		ArrayList<Letter>d=new ArrayList<Letter>();
-		d.add(new Letter('C'));
-		d.add(new Letter('T'));
-		d.add(new Letter('S'));
-		d.add(new Letter('E'));
-		d.add(new Letter('R'));
+		Word t=new Word("E", new Point(7,7), 'H');
+		b.addWord(t);
+		w.showBoard(b);
+		c.makeMove(b);
 
-
-		Word s=new Word("1A1111", new Point(0,0), 'H');
-		ArrayList<Word> g=c.getPossWords(s, d);
-		for(int i=0;i<g.size();i++){
-			System.out.println(g.get(i).getWord());
-		}
 	}
 }
 
