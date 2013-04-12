@@ -138,6 +138,18 @@ public class S2 extends Player{
 		return a;
 	}
 
+	private ArrayList<ArrayList> fillAllWords(ArrayList<ArrayList> lettersFromBoard){
+		ArrayList<ArrayList> t=new ArrayList<ArrayList>();
+		for(int letterIndex=0;letterIndex<lettersFromBoard.size();letterIndex++){
+			t.add(new ArrayList());
+			t.get(letterIndex).add(lettersFromBoard.get(letterIndex).get(0));
+			for(int wordIndex=0;wordIndex<lettersFromBoard.get(letterIndex).size();wordIndex++){
+				t.get(letterIndex).add(getWord(lettersFromBoard, letterIndex, wordIndex));
+			}
+		}
+		return t;
+	}
+	
 	public Word getWord(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
 		
 		//gets current word, ex: "11a1" (1=blank)
@@ -297,10 +309,10 @@ public class S2 extends Player{
 		Word t6=new Word("I", new Point(13,1), 'H');
 		b.addWord(t6);
 				
-		ArrayList<ArrayList> d=c.findWordLengths(c.getLettersFromBoard(b), b);
-		for(int i=0;i<d.size();i++){
-			for(int k=0;k<d.get(i).size();k++){
-				System.out.println(d.get(i).get(k));
+		ArrayList<ArrayList> f=c.findWordLengths(c.getLettersFromBoard(b), b);
+		for(int i=0;i<f.size();i++){
+			for(int k=0;k<f.get(i).size();k++){
+				System.out.println(f.get(i).get(k));
 			}
 		}
 		
