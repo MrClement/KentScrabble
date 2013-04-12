@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 public class S2 extends Player{
-	Dictionary dic=new Dictionary();
+	Dictionary dic;
+	int turn;
 	
 	public S2(LetterBag a){
 		super(a);
+		dic=new Dictionary();
+		turn=0;
 	}
 
 	public ArrayList<ArrayList> getLettersFromBoard(Board b){
@@ -139,15 +142,16 @@ public class S2 extends Player{
 	}
 
 	private ArrayList<ArrayList> fillAllWords(ArrayList<ArrayList> lettersFromBoard){
-		ArrayList<ArrayList> t=new ArrayList<ArrayList>();
-		for(int letterIndex=0;letterIndex<lettersFromBoard.size();letterIndex++){
-			t.add(new ArrayList());
-			t.get(letterIndex).add(lettersFromBoard.get(letterIndex).get(0));
-			for(int wordIndex=0;wordIndex<lettersFromBoard.get(letterIndex).size();wordIndex++){
-				t.get(letterIndex).add(getWord(lettersFromBoard, letterIndex, wordIndex));
+		ArrayList<ArrayList> a = new ArrayList<ArrayList>();
+		for(int i=0;i<lettersFromBoard.size();i++){
+			a.add(new ArrayList());
+			a.get(i).add(lettersFromBoard.get(i).get(0));
+			a.get(i).add(lettersFromBoard.get(i).get(1));
+			for (int k=0; k<lettersFromBoard.get(i).size();k++){
+				a.get(i).add(getWord(lettersFromBoard, i, k));
 			}
 		}
-		return t;
+		return a;
 	}
 	
 	public Word getWord(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
@@ -240,7 +244,6 @@ public class S2 extends Player{
 				
 			}
 		
-		
 		return highestWord;
 	}
 	
@@ -291,12 +294,33 @@ public class S2 extends Player{
 		return f;
 	}
 	
+	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> a, boolean first){
+		if(first==true){	
+		String temp="";
+		for(int i=0;i<a.size();i++){
+			temp+=a.get(i).getCharacter();
+		}
+		ArrayList<String> b=perm(new ArrayList<String>(), "", temp);
+		
+		ArrayList<Word> f=new ArrayList<Word>();
+		Dictionary d=new Dictionary();
+		for(int i=0;i<b.size();i++){
+				if(d.isWord(b.get(i))!=-1){
+					f.add(new Word(b.get(i)));
+				}
+		}
+		
+		return f;
+		}
+		else return null;
+	}
+	
 	public static void main(String args[]){
 		
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		S2 c=new S2(a);
-		Word t=new Word("E", new Point(7,7), 'H');
+		/*Word t=new Word("E", new Point(7,7), 'H');
 		b.addWord(t);
 		Word t1=new Word("T", new Point(3,4), 'H');
 		b.addWord(t1);
@@ -307,18 +331,24 @@ public class S2 extends Player{
 		Word t5=new Word("E", new Point(11,3), 'H');
 		b.addWord(t5);
 		Word t6=new Word("I", new Point(13,1), 'H');
-		b.addWord(t6);
+		b.addWord(t6);*/
 				
-		ArrayList<ArrayList> f=c.findWordLengths(c.getLettersFromBoard(b), b);
+		ArrayList<Word> f=c.getPossWords(new Word("A1"), c.getLetters());
 		for(int i=0;i<f.size();i++){
-			for(int k=0;k<f.get(i).size();k++){
-				System.out.println(f.get(i).get(k));
-			}
+				System.out.println(f.get(i).getWord());
 		}
 		
 	}
 	
 	public Word makeMove(Board b) {
+		if (turn==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
+			ArrayList<ArrayList> temp=new ArrayList<ArrayList>();
+			temp.add(new ArrayList());
+			temp.get(0).add(new Letter('1'));
+			temp.get(0).add(new Point(7,7));
+		}
+		
+		turn++;
 		return null;
 	}
 
