@@ -252,8 +252,6 @@ public class S2 extends Player{
 		while(blank.getWord().charAt(letIndex)=='1'){
 			letIndex++;
 		}
-		
-		
 		ArrayList<Letter> a=new ArrayList<Letter>();
 		for(int i=0;i<letters.size();i++){
 			a.add(letters.get(i));
@@ -269,7 +267,7 @@ public class S2 extends Player{
 		
 		ArrayList<Word> f=new ArrayList<Word>();
 		for(int i=0;i<b.size();i++){
-			if(b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
+			if(b.get(i).length()==blank.getWord().length()&&b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
 				if(dic.isWord(b.get(i))!=-1){
 					f.add(new Word(b.get(i)));
 				}
@@ -296,9 +294,10 @@ public class S2 extends Player{
 		Board b=new Board();
 		S2 c=new S2(a);
 		
-		ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
+		ArrayList<Word> d=c.getPossWords(new Word("T1111"), c.getLetters());;
+		//ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
 		for(int i=0;i<d.size();i++){
-			System.out.println(d.get(i));
+			System.out.println(d.get(i).getWord());
 		}
 		/*
 		Word t=new Word("E", new Point(7,7), 'H');
