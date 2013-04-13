@@ -247,20 +247,6 @@ public class S2 extends Player{
 		return highestWord;
 	}
 	
-	private ArrayList<String> perm(ArrayList<String> a, String b, String c){
-		ArrayList<String>d=a;
-	    if(c.length() <= 1)
-	    		d.add(b+c);
-	    else{
-	        for(int i=0; i <c.length();i++){
-		          perm(d, b+c.charAt(i), c.substring(0, i) + c.substring(i+1, c.length()));
-		        }           
-	    }
-	    return d;
-		//source - http://stackoverflow.com/questions/4950085/permutations-of-a-string
-
-	}
-		
 	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
 		int letIndex=0;
 		while(blank.getWord().charAt(letIndex)=='1'){
@@ -279,13 +265,12 @@ public class S2 extends Player{
 			temp+=a.get(i).getCharacter()+"";
 		}
 		
-		ArrayList<String> b=perm(new ArrayList<String>(), "", temp);
+		ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
 		
 		ArrayList<Word> f=new ArrayList<Word>();
-		Dictionary d=new Dictionary();
 		for(int i=0;i<b.size();i++){
 			if(b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
-				if(d.isWord(b.get(i))!=-1){
+				if(dic.isWord(b.get(i))!=-1){
 					f.add(new Word(b.get(i)));
 				}
 			}
@@ -293,34 +278,30 @@ public class S2 extends Player{
 		
 		return f;
 	}
-	
-	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> a, boolean first){
-		if(first==true){	
-		String temp="";
-		for(int i=0;i<a.size();i++){
-			temp+=a.get(i).getCharacter();
-		}
-		ArrayList<String> b=perm(new ArrayList<String>(), "", temp);
-		
-		ArrayList<Word> f=new ArrayList<Word>();
-		Dictionary d=new Dictionary();
-		for(int i=0;i<b.size();i++){
-				if(d.isWord(b.get(i))!=-1){
-					f.add(new Word(b.get(i)));
-				}
-		}
-		
-		return f;
-		}
-		else return null;
+	    
+	public ArrayList<String> perm(ArrayList<String> f, String prefix, String str) {
+	    ArrayList<String> a=f;
+	    a.add(prefix);
+	       for (int i = 0; i < str.length(); i++) {
+	           perm(a,prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, str.length()));
+	        }
+	    return a;
 	}
+	
+
 	
 	public static void main(String args[]){
 		
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		S2 c=new S2(a);
-		/*Word t=new Word("E", new Point(7,7), 'H');
+		
+		ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
+		for(int i=0;i<d.size();i++){
+			System.out.println(d.get(i));
+		}
+		/*
+		Word t=new Word("E", new Point(7,7), 'H');
 		b.addWord(t);
 		Word t1=new Word("T", new Point(3,4), 'H');
 		b.addWord(t1);
@@ -331,12 +312,14 @@ public class S2 extends Player{
 		Word t5=new Word("E", new Point(11,3), 'H');
 		b.addWord(t5);
 		Word t6=new Word("I", new Point(13,1), 'H');
-		b.addWord(t6);*/
+		b.addWord(t6);
+		
 				
-		ArrayList<Word> f=c.getPossWords(new Word("A1"), c.getLetters());
+		ArrayList<Word> f=c.g(new Word("11A1"), c.getLetters());
 		for(int i=0;i<f.size();i++){
-				System.out.println(f.get(i).getWord());
+			System.out.println(f.get(i).getWord());
 		}
+		*/
 		
 	}
 	
