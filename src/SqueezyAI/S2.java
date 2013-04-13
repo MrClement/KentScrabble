@@ -277,6 +277,28 @@ public class S2 extends Player{
 		return f;
 	}
 	    
+	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> a, boolean first){
+		if (first==true){
+			String temp="";
+			for(int i=0;i<a.size();i++){
+				temp+=a.get(i).getCharacter()+"";
+			}
+			
+			ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
+			
+			ArrayList<Word> f=new ArrayList<Word>();
+			for(int i=0;i<b.size();i++){
+				if(b.get(i).length()==blank.getWord().length()&&dic.isWord(b.get(i))!=-1){
+						f.add(new Word(b.get(i)));
+				}
+				
+			}
+			return f;
+		}
+		else return null;
+		
+	}
+
 	public ArrayList<String> perm(ArrayList<String> f, String prefix, String str) {
 	    ArrayList<String> a=f;
 	    a.add(prefix);
@@ -285,16 +307,14 @@ public class S2 extends Player{
 	        }
 	    return a;
 	}
-	
 
-	
 	public static void main(String args[]){
 		
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		S2 c=new S2(a);
 		
-		ArrayList<Word> d=c.getPossWords(new Word("T1111"), c.getLetters());;
+		ArrayList<Word> d=c.getPossWords(new Word("1111"), c.getLetters(), true);;
 		//ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
 		for(int i=0;i<d.size();i++){
 			System.out.println(d.get(i).getWord());
@@ -319,8 +339,8 @@ public class S2 extends Player{
 			System.out.println(f.get(i).getWord());
 		}
 		*/
-		
 	}
+
 	
 	public Word makeMove(Board b) {
 		if (turn==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
