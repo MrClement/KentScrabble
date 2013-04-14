@@ -8,10 +8,12 @@ import java.util.Map.Entry;
 
 public class S2 extends Player{
 	Dictionary dic;
+	int score;
 	
 	public S2(LetterBag a){
 		super(a);
 		dic=new Dictionary();
+		score=0;
 	}
 
 	private int getFarL(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
@@ -343,15 +345,37 @@ public class S2 extends Player{
 			ArrayList<ArrayList>c=findWordLengths(a,b);
 			ArrayList<ArrayList>d=getBestWordsFirst(c,b);
 			Word w=bestWord(d,b);
+			String temp=w.getWord();
+			for(int i=0;i<temp.length();i++){
+				for(int k=0;k<letters.size();k++){
+					if(letters.get(k).getCharacter()==temp.charAt(i)){
+						letters.remove(k);
+						break;
+					}
+				}
+			}
+			draw(temp.length());
+			score+=getWordScore(w, b);
 			return w;
 		}
 		else{
-			return bestWord(getBestWords(findWordLengths(getLettersFromBoard(b),b),b),b);
+			Word w = bestWord(getBestWords(findWordLengths(getLettersFromBoard(b),b),b),b);
+			String temp=w.getWord();
+			for(int i=0;i<temp.length();i++){
+				for(int k=0;k<letters.size();k++){
+					if(letters.get(k).getCharacter()==temp.charAt(i)){
+						letters.remove(k);
+						break;
+					}
+				}
+			}
+			draw(temp.length());
+			score+=getWordScore(w, b);
+			return w;
 		}
 	}
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -370,7 +394,7 @@ public class S2 extends Player{
 		
 		Board b = new Board();
 		S2 s = new S2(new LetterBag());
-		for(int i=0;i<10;i++){
+		for(int i=0;i<5;i++){
 			Word word=s.makeMove(b);
 			b.addWord(word);
 		}
