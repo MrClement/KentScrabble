@@ -1,5 +1,6 @@
 package SqueezyAI;
 import core.*;
+
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -179,7 +180,7 @@ public class S2 extends Player{
 			}
 			boolean dWord=false;
 			boolean tWord=false;
-			for(int i=(int)st.getY();i<(int)st.getX()+length;i++){
+			for(int i=(int)st.getY();i<(int)st.getY()+length;i++){
 				if(b.getArr()[(int)st.getX()][i].getTypeInt()==3)dWord=true;
 				if(b.getArr()[(int)st.getX()][i].getTypeInt()==4)tWord=true;
 			}
@@ -318,7 +319,7 @@ public class S2 extends Player{
 
 	public Word bestWord(ArrayList<ArrayList> a, Board b){
 		int maxScore=0;
-		int lIndex=-1;
+		int lIndex=0;
 		int wIndex=0;
 		for(int i=0;i<a.size();i++){
 			for(int k=2;k<a.get(i).size();k++){
@@ -349,29 +350,32 @@ public class S2 extends Player{
 		}
 	}
 
-	public static void main(String args[]){
+	public static void main(String[] args) {
 		
-		LetterBag a=new LetterBag();
-		Board b=new Board();
-		S2 c=new S2(a);
-		/*Word t=new Word("E", new Point(7,7), 'H');
-		b.addWord(t);	
-		Word t1=new Word("T", new Point(3,4), 'H');
-		b.addWord(t1);
-		Word t2=new Word("R", new Point(5,8), 'H');
-		b.addWord(t2);
-		Word t4=new Word("S", new Point(9,12), 'H');
-		b.addWord(t4);
-		Word t5=new Word("E", new Point(11,3), 'H');
-		b.addWord(t5);
-		Word t6=new Word("I", new Point(13,1), 'H');
-		b.addWord(t6);*/
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ScrabbleGUI window = new ScrabbleGUI();
+					window.getFrame().setVisible(true);
+					window.getFrame().setTitle("Scrabble");
+					cont(window);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});	
+	}
+	
+	private static void cont(ScrabbleGUI w) {
 		
-		for(int i=0;i<c.getLetters().size();i++)System.out.println(c.getLetters().get(i));
-		Word w=c.makeMove(b);
-		System.out.println(w.getWord()+" - "+w.getLocation()+" - "+w.getDirection());
-		
-		
+		Board b = new Board();
+		S2 s = new S2(new LetterBag());
+		for(int i=0;i<10;i++){
+			Word word=s.makeMove(b);
+			b.addWord(word);
+		}
+		w.showBoard(b);
+
 	}
 
 	

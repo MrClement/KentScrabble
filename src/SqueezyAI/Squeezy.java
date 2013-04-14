@@ -338,6 +338,114 @@ public class Squeezy extends Player{
 	}
 	*/
 	
+	/*
+	 * private ArrayList<ArrayList> fillAllWords(ArrayList<ArrayList> lettersFromBoard){
+			ArrayList<ArrayList> a = new ArrayList<ArrayList>();
+			for(int i=0;i<lettersFromBoard.size();i++){
+				a.add(new ArrayList());
+				a.get(i).add(lettersFromBoard.get(i).get(0));
+				a.get(i).add(lettersFromBoard.get(i).get(1));
+				for (int k=0; k<lettersFromBoard.get(i).size();k++){
+					a.get(i).add(getWord(lettersFromBoard, i, k));
+				}
+			}
+			return a;
+		}
+		
+		public Word getWord(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
+			
+			//gets current word, ex: "11a1" (1=blank)
+			Board randBoard=new Board();
+			Space[][] tempSpaceArray=randBoard.getArr();
+			Word a=(Word)lettersFromBoard.get(letterIndex).get(wordIndex);
+			//this letter cannot be counted for double letters, etc.
+			int indexOfCurrLetterAlreadyPlayed= -1;
+			for(int i=0; i<a.toString().length(); i++){
+				if(a.toString().substring(i,i+1)!="1") indexOfCurrLetterAlreadyPlayed= i;
+			}
+			
+			ArrayList<Word> legalWordsOfLengthX = new ArrayList<Word>();
+			legalWordsOfLengthX = getPossWords(a,this.getLetters());
+			int numLettersPerWord= legalWordsOfLengthX.get(0).getWord().length();
+			Word highestWord = new Word(legalWordsOfLengthX.get(0).getWordInLetters(),legalWordsOfLengthX.get(0).getLocation(), legalWordsOfLengthX.get(0).getDirection());
+			//add in arraylist of arraylist word in first index and score in 2nd index
+			int currHighValue=0;
+			for(int i=0; i<legalWordsOfLengthX.size(); i++)
+			{
+				boolean isDoubleWord=false;
+				boolean isTripleWord=false;
+				int totalPointValue= 0;
+				char dir = legalWordsOfLengthX.get(i).getDirection();
+				Point loc =legalWordsOfLengthX.get(i).getLocation();
+				for(int j=0; j<numLettersPerWord; j++)
+				{
+					if(j==indexOfCurrLetterAlreadyPlayed)
+					{
+						totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+						if(j!=numLettersPerWord-1)j++;
+					}
+					
+					else if (dir== 'H'){
+						loc.setLocation(loc.getX()+j,loc.getY());
+						String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
+						if(typeOfSpace!="Normal")
+						{
+							if(typeOfSpace=="Double Word"){
+								isDoubleWord=true;
+								totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
+							if(typeOfSpace=="Triple Word"){
+								isTripleWord=true;
+								totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
+							}
+							if(typeOfSpace=="Double Letter"){
+								int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+								totalPointValue+=timestwo;
+							}
+							if(typeOfSpace=="Triple Letter"){
+								int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+								totalPointValue+=timesthree;
+							}
+						}
+						totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+					}
+					else if (dir=='V'){
+						loc.setLocation(loc.getX(),loc.getY()+j);
+						String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
+						if(typeOfSpace!="Normal")
+						{
+							if(typeOfSpace=="Double Word"){
+								isDoubleWord=true;
+								totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
+							if(typeOfSpace=="Triple Word"){
+								isTripleWord=true;
+								totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
+							}
+							if(typeOfSpace=="Double Letter"){
+								int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+								totalPointValue+=timestwo;
+							}
+							if(typeOfSpace=="Triple Letter"){
+								int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+								totalPointValue+=timesthree;
+							}
+						}
+						totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
+					}
+					
+					if (isDoubleWord) totalPointValue=totalPointValue*2;
+					if (isTripleWord) totalPointValue=totalPointValue*3;
+					if (totalPointValue>currHighValue) {
+						currHighValue=totalPointValue;
+						highestWord = legalWordsOfLengthX.get(i);	
+					}
+					}
+					
+				}
+			
+			return highestWord;
+		}*/
+
+	
 	public static void main(String[] args){
 			LetterBag a=new LetterBag();
 			Board b=new Board();
