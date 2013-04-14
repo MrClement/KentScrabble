@@ -313,13 +313,16 @@ public class S2 extends Player{
 		LetterBag a=new LetterBag();
 		Board b=new Board();
 		S2 c=new S2(a);
+		Word w=new Word("THAT", new Point(8,7), 'V');
+		b.addWord(w);
+		System.out.println(c.getWordScore(w, b));
 		
-		ArrayList<Word> d=c.getPossWords(new Word("1111"), c.getLetters(), true);;
+		/*
+		 * ArrayList<Word> d=c.getPossWords(new Word("1111"), c.getLetters(), true);;
 		//ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
 		for(int i=0;i<d.size();i++){
 			System.out.println(d.get(i).getWord());
 		}
-		/*
 		Word t=new Word("E", new Point(7,7), 'H');
 		b.addWord(t);
 		Word t1=new Word("T", new Point(3,4), 'H');
@@ -341,17 +344,68 @@ public class S2 extends Player{
 		*/
 	}
 
-	
 	public Word makeMove(Board b) {
 		if (turn==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
 			ArrayList<ArrayList> temp=new ArrayList<ArrayList>();
 			temp.add(new ArrayList());
 			temp.get(0).add(new Letter('1'));
 			temp.get(0).add(new Point(7,7));
+			
 		}
 		
 		turn++;
 		return null;
 	}
 
+	public int getWordScore(Word w, Board b){
+		char dir=w.getDirection();
+		Point st=w.getLocation();
+		int length=w.getWord().length();
+		int score=0;
+		if(dir=='H'){
+			for(int i=(int)st.getX();i<(int)st.getX()+length;i++){
+				if(b.getArr()[i][(int)st.getY()].getTypeInt()==0){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal();
+				}
+				else if(b.getArr()[i][(int)st.getY()].getTypeInt()==1){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal()*2;
+				}
+				else if(b.getArr()[i][(int)st.getY()].getTypeInt()==2){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal()*3;
+				}
+			}
+			boolean dWord=false;
+			boolean tWord=false;
+			for(int i=(int)st.getX();i<(int)st.getX()+length;i++){
+				if(b.getArr()[i][(int)st.getY()].getTypeInt()==3)dWord=true;
+				if(b.getArr()[i][(int)st.getY()].getTypeInt()==4)tWord=true;
+			}
+			if(dWord==true)score*=2;
+			if(tWord==true)score*=3;
+			
+		}
+		else if(dir=='V'){
+			for(int i=(int)st.getY();i<(int)st.getY()+length;i++){
+				if(b.getArr()[(int)st.getX()][i].getTypeInt()==0){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal();
+				}
+				else if(b.getArr()[(int)st.getX()][i].getTypeInt()==1){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal()*2;
+				}
+				else if(b.getArr()[(int)st.getX()][i].getTypeInt()==2){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal()*3;
+				}
+			}
+			boolean dWord=false;
+			boolean tWord=false;
+			for(int i=(int)st.getY();i<(int)st.getX()+length;i++){
+				if(b.getArr()[(int)st.getX()][i].getTypeInt()==3)dWord=true;
+				if(b.getArr()[(int)st.getX()][i].getTypeInt()==4)tWord=true;
+			}
+			if(dWord==true)score*=2;
+			if(tWord==true)score*=3;
+		}
+		
+		return score;
+	}
 }
