@@ -1,6 +1,5 @@
 package SqueezyAI;
 import core.*;
-
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -8,31 +7,12 @@ import java.util.Map.Entry;
 
 public class S2 extends Player{
 	Dictionary dic;
-	int turn;
 	
 	public S2(LetterBag a){
 		super(a);
 		dic=new Dictionary();
-		turn=0;
 	}
 
-	public ArrayList<ArrayList> getLettersFromBoard(Board b){
-		ArrayList<ArrayList> y=new ArrayList<ArrayList>();
-		Space[][] a=b.getArr();
-		for(int i=0;i<a.length;i++){
-				for(int j=0;j<a[i].length;j++){
-					if(a[i][j].getLetter().getCharacter()!='0'){
-						ArrayList test=new ArrayList();
-						test.add(a[i][j].getLetter());
-						test.add(new Point(i, j));
-						y.add(test);
-						
-					}
-				}
-		}
-		return y;
-	}
-	
 	private int getFarL(ArrayList<ArrayList> lettersFromBoard, int letterIndex, Board b){
 		int x=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getX());
 		int y=(int)(((Point)lettersFromBoard.get(letterIndex).get(1)).getY());
@@ -86,6 +66,23 @@ public class S2 extends Player{
 		if(y+w==14)farD=14;
 		return farD;
 	}
+
+	public ArrayList<ArrayList> getLettersFromBoard(Board b){
+		ArrayList<ArrayList> y=new ArrayList<ArrayList>();
+		Space[][] a=b.getArr();
+		for(int i=0;i<a.length;i++){
+				for(int j=0;j<a[i].length;j++){
+					if(a[i][j].getLetter().getCharacter()!='0'){
+						ArrayList test=new ArrayList();
+						test.add(a[i][j].getLetter());
+						test.add(new Point(i, j));
+						y.add(test);
+						
+					}
+				}
+		}
+		return y;
+	}
 	
 	public ArrayList<ArrayList> findWordLengths(ArrayList<ArrayList> lettersFromBoard, Board b){
 		ArrayList<ArrayList> a=new ArrayList<ArrayList>();
@@ -112,7 +109,7 @@ public class S2 extends Player{
 							else s+='1';
 					}				
 					if(s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
-						temp.add(new Word(s, new Point(farL, y ), 'H'));
+						temp.add(new Word(s, new Point(o, y ), 'H'));
 					}
 				}
 			}
@@ -124,7 +121,7 @@ public class S2 extends Player{
 							else s+='1';
 					}				
 					if(s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
-						temp.add(new Word(s, new Point(x, farU ), 'V'));
+						temp.add(new Word(s, new Point(x, o ), 'V'));
 					}
 				}
 			}
@@ -139,222 +136,6 @@ public class S2 extends Player{
 	
 	
 		return a;
-	}
-
-	private ArrayList<ArrayList> fillAllWords(ArrayList<ArrayList> lettersFromBoard){
-		ArrayList<ArrayList> a = new ArrayList<ArrayList>();
-		for(int i=0;i<lettersFromBoard.size();i++){
-			a.add(new ArrayList());
-			a.get(i).add(lettersFromBoard.get(i).get(0));
-			a.get(i).add(lettersFromBoard.get(i).get(1));
-			for (int k=0; k<lettersFromBoard.get(i).size();k++){
-				a.get(i).add(getWord(lettersFromBoard, i, k));
-			}
-		}
-		return a;
-	}
-	
-	public Word getWord(ArrayList<ArrayList> lettersFromBoard, int letterIndex, int wordIndex){
-		
-		//gets current word, ex: "11a1" (1=blank)
-		Board randBoard=new Board();
-		Space[][] tempSpaceArray=randBoard.getArr();
-		Word a=(Word)lettersFromBoard.get(letterIndex).get(wordIndex);
-		//this letter cannot be counted for double letters, etc.
-		int indexOfCurrLetterAlreadyPlayed= -1;
-		for(int i=0; i<a.toString().length(); i++){
-			if(a.toString().substring(i,i+1)!="1") indexOfCurrLetterAlreadyPlayed= i;
-		}
-		
-		ArrayList<Word> legalWordsOfLengthX = new ArrayList<Word>();
-		legalWordsOfLengthX = getPossWords(a,this.getLetters());
-		int numLettersPerWord= legalWordsOfLengthX.get(0).getWord().length();
-		Word highestWord = new Word(legalWordsOfLengthX.get(0).getWordInLetters(),legalWordsOfLengthX.get(0).getLocation(), legalWordsOfLengthX.get(0).getDirection());
-		//add in arraylist of arraylist word in first index and score in 2nd index
-		int currHighValue=0;
-		for(int i=0; i<legalWordsOfLengthX.size(); i++)
-		{
-			boolean isDoubleWord=false;
-			boolean isTripleWord=false;
-			int totalPointValue= 0;
-			char dir = legalWordsOfLengthX.get(i).getDirection();
-			Point loc =legalWordsOfLengthX.get(i).getLocation();
-			for(int j=0; j<numLettersPerWord; j++)
-			{
-				if(j==indexOfCurrLetterAlreadyPlayed)
-				{
-					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-					if(j!=numLettersPerWord-1)j++;
-				}
-				
-				else if (dir== 'H'){
-					loc.setLocation(loc.getX()+j,loc.getY());
-					String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
-					if(typeOfSpace!="Normal")
-					{
-						if(typeOfSpace=="Double Word"){
-							isDoubleWord=true;
-							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
-						if(typeOfSpace=="Triple Word"){
-							isTripleWord=true;
-							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
-						}
-						if(typeOfSpace=="Double Letter"){
-							int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-							totalPointValue+=timestwo;
-						}
-						if(typeOfSpace=="Triple Letter"){
-							int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-							totalPointValue+=timesthree;
-						}
-					}
-					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-				}
-				else if (dir=='V'){
-					loc.setLocation(loc.getX(),loc.getY()+j);
-					String typeOfSpace = tempSpaceArray[(int)loc.getX()][(int)loc.getY()].getTypeString();
-					if(typeOfSpace!="Normal")
-					{
-						if(typeOfSpace=="Double Word"){
-							isDoubleWord=true;
-							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		}
-						if(typeOfSpace=="Triple Word"){
-							isTripleWord=true;
-							totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();		
-						}
-						if(typeOfSpace=="Double Letter"){
-							int timestwo= 2 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-							totalPointValue+=timestwo;
-						}
-						if(typeOfSpace=="Triple Letter"){
-							int timesthree= 3 * legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-							totalPointValue+=timesthree;
-						}
-					}
-					totalPointValue+=legalWordsOfLengthX.get(i).getWordInLetters()[j].getVal();
-				}
-				
-				if (isDoubleWord) totalPointValue=totalPointValue*2;
-				if (isTripleWord) totalPointValue=totalPointValue*3;
-				if (totalPointValue>currHighValue) {
-					currHighValue=totalPointValue;
-					highestWord = legalWordsOfLengthX.get(i);	
-				}
-				}
-				
-			}
-		
-		return highestWord;
-	}
-	
-	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> letters){
-		int letIndex=0;
-		while(blank.getWord().charAt(letIndex)=='1'){
-			letIndex++;
-		}
-		ArrayList<Letter> a=new ArrayList<Letter>();
-		for(int i=0;i<letters.size();i++){
-			a.add(letters.get(i));
-		}
-		a.add(new Letter(blank.getWord().charAt(letIndex)));
-		
-		String temp="";
-		for(int i=0;i<a.size();i++){
-			temp+=a.get(i).getCharacter()+"";
-		}
-		
-		ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
-		
-		ArrayList<Word> f=new ArrayList<Word>();
-		for(int i=0;i<b.size();i++){
-			if(b.get(i).length()==blank.getWord().length()&&b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
-				if(dic.isWord(b.get(i))!=-1){
-					f.add(new Word(b.get(i)));
-				}
-			}
-		}
-		
-		return f;
-	}
-	    
-	private ArrayList<Word> getPossWords(Word blank, ArrayList<Letter> a, boolean first){
-		if (first==true){
-			String temp="";
-			for(int i=0;i<a.size();i++){
-				temp+=a.get(i).getCharacter()+"";
-			}
-			
-			ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
-			
-			ArrayList<Word> f=new ArrayList<Word>();
-			for(int i=0;i<b.size();i++){
-				if(b.get(i).length()==blank.getWord().length()&&dic.isWord(b.get(i))!=-1){
-						f.add(new Word(b.get(i)));
-				}
-				
-			}
-			return f;
-		}
-		else return null;
-		
-	}
-
-	public ArrayList<String> perm(ArrayList<String> f, String prefix, String str) {
-	    ArrayList<String> a=f;
-	    a.add(prefix);
-	       for (int i = 0; i < str.length(); i++) {
-	           perm(a,prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, str.length()));
-	        }
-	    return a;
-	}
-
-	public static void main(String args[]){
-		
-		LetterBag a=new LetterBag();
-		Board b=new Board();
-		S2 c=new S2(a);
-		Word w=new Word("THAT", new Point(8,7), 'V');
-		b.addWord(w);
-		System.out.println(c.getWordScore(w, b));
-		
-		/*
-		 * ArrayList<Word> d=c.getPossWords(new Word("1111"), c.getLetters(), true);;
-		//ArrayList<String> d=c.perm(new ArrayList<String>(), "", "physics");
-		for(int i=0;i<d.size();i++){
-			System.out.println(d.get(i).getWord());
-		}
-		Word t=new Word("E", new Point(7,7), 'H');
-		b.addWord(t);
-		Word t1=new Word("T", new Point(3,4), 'H');
-		b.addWord(t1);
-		Word t2=new Word("R", new Point(5,8), 'H');
-		b.addWord(t2);
-		Word t4=new Word("S", new Point(9,12), 'H');
-		b.addWord(t4);
-		Word t5=new Word("E", new Point(11,3), 'H');
-		b.addWord(t5);
-		Word t6=new Word("I", new Point(13,1), 'H');
-		b.addWord(t6);
-		
-				
-		ArrayList<Word> f=c.g(new Word("11A1"), c.getLetters());
-		for(int i=0;i<f.size();i++){
-			System.out.println(f.get(i).getWord());
-		}
-		*/
-	}
-
-	public Word makeMove(Board b) {
-		if (turn==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
-			ArrayList<ArrayList> temp=new ArrayList<ArrayList>();
-			temp.add(new ArrayList());
-			temp.get(0).add(new Letter('1'));
-			temp.get(0).add(new Point(7,7));
-			
-		}
-		
-		turn++;
-		return null;
 	}
 
 	public int getWordScore(Word w, Board b){
@@ -408,4 +189,191 @@ public class S2 extends Player{
 		
 		return score;
 	}
+
+	private ArrayList<Word> getPossWords(Word blank){
+		int letIndex=0;
+		while(blank.getWord().charAt(letIndex)=='1'){
+			letIndex++;
+		}
+		ArrayList<Letter> a=new ArrayList<Letter>();
+		for(int i=0;i<this.getLetters().size();i++){
+			a.add(this.getLetters().get(i));
+		}
+		a.add(new Letter(blank.getWord().charAt(letIndex)));
+		
+		String temp="";
+		for(int i=0;i<a.size();i++){
+			temp+=a.get(i).getCharacter()+"";
+		}
+		
+		ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
+	
+		ArrayList<Word> f=new ArrayList<Word>();
+		for(int i=0;i<b.size();i++){
+			if(b.get(i).length()==blank.getWord().length()&&b.get(i).charAt(letIndex)==blank.getWord().charAt(letIndex)){
+				if(dic.isWord(b.get(i))!=-1)f.add(new Word(b.get(i), blank.getLocation(), blank.getDirection()));
+			}
+		}
+		
+		return f;
+	}
+
+	private ArrayList<Word> getPossWordsFirst(Word blank){
+		ArrayList<Letter> a=new ArrayList<Letter>();
+		for(int i=0;i<this.getLetters().size();i++){
+			a.add(this.getLetters().get(i));
+		}
+		
+		String temp="";
+		for(int i=0;i<a.size();i++){
+			temp+=a.get(i).getCharacter()+"";
+		}
+		
+		ArrayList<String> b=perm(new ArrayList<String>(),"",temp);
+	
+		ArrayList<Word> f=new ArrayList<Word>();
+		for(int i=0;i<b.size();i++){
+			if(b.get(i).length()==blank.getWord().length()){
+				if(dic.isWord(b.get(i))!=-1)f.add(new Word(b.get(i), blank.getLocation(), blank.getDirection()));
+			}
+		}
+		
+		return f;
+	}
+
+	public ArrayList<String> perm(ArrayList<String> f, String prefix, String str) {
+	    ArrayList<String> a=f;
+	    a.add(prefix);
+	       for (int i = 0; i < str.length(); i++) {
+	           perm(a,prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, str.length()));
+	        }
+	    return a;
+	}
+
+	public ArrayList<ArrayList> getBestWords(ArrayList<ArrayList> a, Board b){
+		ArrayList<ArrayList> c=new ArrayList<ArrayList>();
+		for(int i=0;i<a.size();i++){
+			c.add(new ArrayList());
+			for(int k=0;k<a.get(i).size();k++){
+				c.get(i).add(a.get(i).get(k));
+			}
+		}
+		
+		for(ArrayList d:c){
+			for(int i=2;i<d.size();i++){
+				Word w=(Word)d.get(i);
+				ArrayList<Word> e=getPossWords(w);
+				if(e.size()==0){
+					d.remove(i);
+					i--;
+				}
+				else{
+				int maxScore=0;
+				int index=0;
+				for(int k=0;k<e.size();k++){
+					if(getWordScore(e.get(k), b)>maxScore){
+						maxScore=getWordScore(e.get(k),b);
+						index=k;
+					}
+				}
+				d.set(i, e.get(index));
+				}
+			}
+		}
+		return c;
+	}
+	
+	public ArrayList<ArrayList> getBestWordsFirst(ArrayList<ArrayList> a, Board b){
+		ArrayList<ArrayList> c=new ArrayList<ArrayList>();
+		for(int i=0;i<a.size();i++){
+			c.add(new ArrayList());
+			for(int k=0;k<a.get(i).size();k++){
+				c.get(i).add(a.get(i).get(k));
+			}
+		}
+		
+		for(ArrayList d:c){
+			for(int i=2;i<d.size();i++){
+				Word w=(Word)d.get(i);
+				ArrayList<Word> e=getPossWordsFirst(w);
+				if(e.size()==0){
+					d.remove(i);
+					i--;
+				}
+				else{
+				int maxScore=0;
+				int index=0;
+				for(int k=0;k<e.size();k++){
+					if(getWordScore(e.get(k), b)>maxScore){
+						maxScore=getWordScore(e.get(k),b);
+						index=k;
+					}
+				}
+				d.set(i, e.get(index));
+				}
+			}
+		}
+		return c;
+	}
+
+	public Word bestWord(ArrayList<ArrayList> a, Board b){
+		int maxScore=0;
+		int lIndex=-1;
+		int wIndex=0;
+		for(int i=0;i<a.size();i++){
+			for(int k=2;k<a.get(i).size();k++){
+				if(getWordScore((Word)a.get(i).get(k), b)>maxScore){
+					maxScore=getWordScore((Word)a.get(i).get(k),b);
+					lIndex=i;
+					wIndex=k;
+				}
+			}
+		}
+		Word w=(Word)a.get(lIndex).get(wIndex);
+		return w;
+	}
+	
+	public Word makeMove(Board b) {
+		if (getLettersFromBoard(b).size()==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
+			ArrayList<ArrayList> a=new ArrayList<ArrayList>();
+			a.add(new ArrayList());
+			a.get(0).add(new Letter('1'));
+			a.get(0).add(new Point(7,7));
+			ArrayList<ArrayList>c=findWordLengths(a,b);
+			ArrayList<ArrayList>d=getBestWordsFirst(c,b);
+			Word w=bestWord(d,b);
+			return w;
+		}
+		else{
+			return bestWord(getBestWords(findWordLengths(getLettersFromBoard(b),b),b),b);
+		}
+	}
+
+	public static void main(String args[]){
+		
+		LetterBag a=new LetterBag();
+		Board b=new Board();
+		S2 c=new S2(a);
+		/*Word t=new Word("E", new Point(7,7), 'H');
+		b.addWord(t);	
+		Word t1=new Word("T", new Point(3,4), 'H');
+		b.addWord(t1);
+		Word t2=new Word("R", new Point(5,8), 'H');
+		b.addWord(t2);
+		Word t4=new Word("S", new Point(9,12), 'H');
+		b.addWord(t4);
+		Word t5=new Word("E", new Point(11,3), 'H');
+		b.addWord(t5);
+		Word t6=new Word("I", new Point(13,1), 'H');
+		b.addWord(t6);*/
+		
+		for(int i=0;i<c.getLetters().size();i++)System.out.println(c.getLetters().get(i));
+		Word w=c.makeMove(b);
+		System.out.println(w.getWord()+" - "+w.getLocation()+" - "+w.getDirection());
+		
+		
+	}
+
+	
+	
 }
