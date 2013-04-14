@@ -105,25 +105,37 @@ public class S2 extends Player{
 			
 			ArrayList<Word> temp=new ArrayList<Word>();
 			for(int o=farL;o<x;o++){
-				for(int p=x;p<farR;p++){
+				for(int p=x;p<=farR;p++){
 					String s="";
 					for(int u=o;u<p;u++){
 							if(u==x)s+=((Letter)a.get(i).get(0)).getCharacter();
 							else s+='1';
-					}				
-					if(s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
+					}	
+					boolean no=true;
+					for(int u=o;u<=p;u++){
+						if(y+1<15)if (b.getArr()[u][y+1].getLetter().getCharacter()!='1')no=false;
+						if(y-1>-1)if (b.getArr()[u][y-1].getLetter().getCharacter()!='1')no=false;
+
+					}
+					if(no==true&&s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
 						temp.add(new Word(s, new Point(o, y ), 'H'));
 					}
 				}
 			}
 			for(int o=farU;o<y;o++){
-				for(int p=y;p<farD;p++){
+				for(int p=y;p<=farD;p++){
 					String s="";
 					for(int u=o;u<p;u++){
 							if(u==x)s+=((Letter)a.get(i).get(0)).getCharacter();
 							else s+='1';
-					}				
-					if(s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
+					}		
+					boolean no=true;
+					for(int u=o;u<=p;u++){
+						if(x+1<15)if (b.getArr()[x+1][u].getLetter().getCharacter()!='1')no=false;
+						if(x-1>-1)if (b.getArr()[x-1][u].getLetter().getCharacter()!='1')no=false;
+
+					}
+					if(no==true&&s.length()>1&&s.length()<9&&s.indexOf(((Letter)a.get(i).get(0)).getCharacter())!=-1){
 						temp.add(new Word(s, new Point(x, o ), 'V'));
 					}
 				}
@@ -394,7 +406,7 @@ public class S2 extends Player{
 		
 		Board b = new Board();
 		S2 s = new S2(new LetterBag());
-		for(int i=0;i<5;i++){
+		for(int i=0;i<3;i++){
 			Word word=s.makeMove(b);
 			b.addWord(word);
 		}
