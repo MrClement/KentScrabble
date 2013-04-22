@@ -11,10 +11,11 @@ public class TestDriver {
 	 */
 	public static void main(String[] args) {
 		Dictionary d = new Dictionary();
-		System.out.println(d.isWord(""));
+		System.out.println(d.isWord("jo"));
 		ArrayList<Character> temp = new ArrayList<>();
-		temp.add('q');
-		temp.add('z');
+		temp.add('a');
+		temp.add('a');
+		temp.add('r');
 		System.out.println(temp);
 		System.out.println(d.allStringsWithLetters(temp));
 

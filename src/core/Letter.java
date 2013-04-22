@@ -26,9 +26,9 @@ public class Letter {
 		this.letter = letter;
 		setVal();
 		if (letter == '0')
-			isBlank = true;
+			setBlank(true);
 		else
-			isBlank = false;
+			setBlank(false);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Letter {
 	 *            , '0' = blank
 	 */
 	public void setChar(char a) {
-		if (isBlank == true) {
+		if (isBlank() == true) {
 			letter = a;
 			val = 0;
 		} else {
@@ -99,5 +99,13 @@ public class Letter {
 	public int hashCode() {
 		return getCharacter();
 
+	}
+
+	public boolean isBlank() {
+		return isBlank;
+	}
+
+	public void setBlank(boolean isBlank) {
+		this.isBlank = isBlank;
 	}
 }
