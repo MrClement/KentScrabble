@@ -1,5 +1,7 @@
 package core;
 
+import java.io.Serializable;
+
 /**
  * @author Alex Patel
  * 
@@ -8,7 +10,11 @@ package core;
  *         but are worth no points
  */
 
-public class Letter {
+public class Letter implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private char letter;
 	private int val;
 	private boolean isBlank;

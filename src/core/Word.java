@@ -1,8 +1,11 @@
 package core;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Word {
+public class Word implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String word;
 	private Letter[] wordL;
 	private int val;
