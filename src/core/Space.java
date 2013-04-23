@@ -1,6 +1,12 @@
 package core;
 
-public class Space {
+import java.io.Serializable;
+
+public class Space implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Letter letter;
 	int type;// 0 is normal space, 1 is double letter, 2 is triple letter,
 				// 3 is double word, 4 is triple word

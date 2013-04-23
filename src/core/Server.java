@@ -1,8 +1,9 @@
 package core;
 
+import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.PrintStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -19,13 +20,15 @@ public class Server {
 		Socket client;
 		Socket client2;
 		ObjectInputStream in;
-		PrintStream out;
+		ObjectOutputStream out;
 		ObjectInputStream in2;
-		PrintStream out2;
+		ObjectOutputStream out2;
 
 		Scanner scan = new Scanner(System.in);
 
 		try {
+
+			// setup clients
 			System.out.println("Server started");
 			myServerSocket = new ServerSocket(port);
 			client = myServerSocket.accept();
@@ -33,10 +36,17 @@ public class Server {
 			// client2 = myServerSocket.accept();
 			// System.out.println("Got client 2");
 			b = new Board();
+			out = new ObjectOutputStream(client.getOutputStream());
 			in = new ObjectInputStream(client.getInputStream());
 			// in2 = new ObjectInputStream(client2.getInputStream());
-			Word w = (Word) in.readObject();
-			System.out.println(w.toString());
+
+			// out2 = new ObjectOutputStream(client2.getOutputStream());
+
+			// play game
+			System.out.println("here");
+			b.addWord(new Word("HI", new Point(7, 7), 'h'));
+			out.writeObject(b);
+			b.addWord((Word) in.readObject());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

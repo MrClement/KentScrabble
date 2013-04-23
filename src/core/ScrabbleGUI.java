@@ -215,4 +215,11 @@ public class ScrabbleGUI {
 		return frame;
 	}
 
+	public void redraw(Board b) {
+		frame.getContentPane().removeAll();
+		showBoard(b);
+		frame.getContentPane().validate();
+		frame.getContentPane().repaint();
+	}
+
 }
