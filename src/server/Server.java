@@ -1,4 +1,4 @@
-package core;
+package server;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -7,6 +7,9 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+
+import core.Board;
+import core.Word;
 
 public class Server {
 	private static int port = 8080;
