@@ -1,6 +1,5 @@
 package server;
 
-import java.awt.Point;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import core.Board;
+import core.LetterBag;
+import core.ScrabbleGUI;
 import core.Word;
 
 public class ScrabbleServer {
@@ -17,6 +18,7 @@ public class ScrabbleServer {
 		int maxPlayers = 4;
 		int players = 0;
 		Board b;
+		LetterBag lb;
 
 		ServerSocket serverSocket = null;
 
@@ -33,20 +35,37 @@ public class ScrabbleServer {
 			serverSocket = new ServerSocket(port);
 			client = serverSocket.accept();
 			System.out.println("Got client 1");
-			// client2 = myServerSocket.accept();
-			// System.out.println("Got client 2");
+			client2 = serverSocket.accept();
+			System.out.println("Got client 2");
 			b = new Board();
+			lb = new LetterBag();
 			out = new ObjectOutputStream(client.getOutputStream());
 			in = new ObjectInputStream(client.getInputStream());
-			// in2 = new ObjectInputStream(client2.getInputStream());
+			out2 = new ObjectOutputStream(client2.getOutputStream());
+			in2 = new ObjectInputStream(client2.getInputStream());
 
-			// out2 = new ObjectOutputStream(client2.getOutputStream());
+			ScrabbleGUI window = new ScrabbleGUI();
+			window.getFrame().setVisible(true);
+			window.showBoard(b);
+			window.redraw(b);
 
 			// play game
-			System.out.println("here");
-			b.addWord(new Word("HI", new Point(7, 7), 'h'));
-			out.writeObject(b);
-			b.addWord((Word) in.readObject());
+			for (int i = 0; i < 7; i++) {
+				// client 1 action
+				out.writeObject(b);
+				out.writeObject(lb);
+				b.addWord((Word) in.readObject());
+				lb = (LetterBag) in.readObject();
+				window.redraw(b);
+				System.out.println("Done1");
+				// client 2 action
+				out2.writeObject(b);
+				out2.writeObject(lb);
+				b.addWord((Word) in2.readObject());
+				lb = (LetterBag) in2.readObject();
+				window.redraw(b);
+				System.out.println("Done2");
+			}
 		} catch (IOException e) {
 			System.out.println("Listen failed: " + port);
 			System.exit(-1);
@@ -55,14 +74,5 @@ public class ScrabbleServer {
 			e.printStackTrace();
 		}
 
-		while (players < maxPlayers) {
-			Socket clientSocket = null;
-			try {
-				clientSocket = serverSocket.accept();
-			} catch (IOException e) {
-				System.out.println("Accept failed:" + port);
-				System.exit(-1);
-			}
-		}
 	}
 }

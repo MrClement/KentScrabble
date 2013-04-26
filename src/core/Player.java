@@ -47,6 +47,10 @@ public abstract class Player {
 		score += i;
 	}
 
+	public void updateLetterBag(LetterBag lb) {
+		this.bag = lb;
+	}
+
 }
 
 /*

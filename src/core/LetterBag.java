@@ -1,5 +1,6 @@
 package core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -11,7 +12,11 @@ import java.util.Random;
  * 
  * 
  */
-public class LetterBag {
+public class LetterBag implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Letter> bag;
 	public static int numLetters = 100;
 
@@ -118,7 +123,7 @@ public class LetterBag {
 			d.add(new Letter(bag.get(j).getCharacter()));
 			if (bag.size() > 0)
 				bag.remove(j);
-			j=r.nextInt(bag.size());
+			j = r.nextInt(bag.size());
 		}
 		return d;
 	}
