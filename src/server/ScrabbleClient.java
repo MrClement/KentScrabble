@@ -33,6 +33,7 @@ public class ScrabbleClient {
 			out = new ObjectOutputStream(myClient.getOutputStream());
 			b = (Board) in.readObject();
 			lb = (LetterBag) in.readObject();
+			// replace this
 			me = new DemoAI(lb);
 			temp = me.makeMove(b);
 			moveToMake = new Word(temp.getWordInLetters(), temp.getLocation(), temp.getDirection());
