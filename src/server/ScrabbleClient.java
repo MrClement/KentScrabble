@@ -5,27 +5,49 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Scanner;
+
+import core.Board;
+import core.DemoAI;
+import core.LetterBag;
+import core.Player;
+import core.Word;
 
 public class ScrabbleClient {
 	private static String hostname = "localhost";
 	private static int port = 8080;
 
-	public static void main(String[] args) {
+	public synchronized static void main(String[] args) {
 
-		ObjectInputStream in;
 		ObjectOutputStream out;
-
-		Scanner scan = new Scanner(System.in);
+		ObjectInputStream in;
+		Board b;
+		LetterBag lb;
+		Player me;
+		Word moveToMake;
+		Word temp;
 
 		Socket myClient;
 		try {
 			myClient = new Socket(hostname, port);
 			in = new ObjectInputStream(myClient.getInputStream());
 			out = new ObjectOutputStream(myClient.getOutputStream());
-			while (scan.hasNext()) {
-				System.out.println(scan.nextLine());
-				System.out.println(in.readLine());
+			b = (Board) in.readObject();
+			lb = (LetterBag) in.readObject();
+			me = new DemoAI(lb);
+			temp = me.makeMove(b);
+			moveToMake = new Word(temp.getWordInLetters(), temp.getLocation(), temp.getDirection());
+			out.writeObject(moveToMake);
+			out.writeObject(lb);
+
+			while (true) {
+
+				b = new Board((Board) in.readObject());
+				lb = (LetterBag) in.readObject();
+				me.updateLetterBag(lb);
+				temp = me.makeMove(b);
+				moveToMake = new Word(temp.getWordInLetters(), temp.getLocation(), temp.getDirection());
+				out.writeObject(moveToMake);
+				out.writeObject(lb);
 			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -33,8 +55,10 @@ public class ScrabbleClient {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
-	
-}
+	}
 }

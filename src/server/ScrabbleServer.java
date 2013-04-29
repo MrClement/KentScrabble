@@ -55,6 +55,7 @@ public class ScrabbleServer {
 				out.writeObject(b);
 				out.writeObject(lb);
 				b.addWord((Word) in.readObject());
+				b = new Board(b);
 				lb = (LetterBag) in.readObject();
 				window.redraw(b);
 				System.out.println("Done1");
@@ -62,6 +63,7 @@ public class ScrabbleServer {
 				out2.writeObject(b);
 				out2.writeObject(lb);
 				b.addWord((Word) in2.readObject());
+				b = new Board(b);
 				lb = (LetterBag) in2.readObject();
 				window.redraw(b);
 				System.out.println("Done2");
