@@ -483,6 +483,10 @@ public class Squeezy extends Player{
 	}
 
 	public Word makeMove(Board b) {
+		for(int i=0;i<letters.size();i++){
+			System.out.print(letters.get(i).getCharacter()+", ");
+		}
+		System.out.println();
 		if (getLettersFromBoard(b).size()==0&&b.getArr()[7][7].getLetter().getCharacter()=='0'){
 			ArrayList<ArrayList> a=new ArrayList<ArrayList>();
 			a.add(new ArrayList());

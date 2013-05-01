@@ -1,5 +1,6 @@
 package core;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 public class Board implements Serializable {
@@ -118,5 +119,57 @@ public class Board implements Serializable {
 			}
 
 		}
+	}
+
+	public int getWordScore(Word w){
+		char dir=w.getDirection();
+		Point st=w.getLocation();
+		int length=w.getWord().length();
+		int score=0;
+		if(dir=='H'){
+			for(int i=(int)st.getX();i<(int)st.getX()+length;i++){
+				if(getArr()[i][(int)st.getY()].getTypeInt()==0){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal();
+				}
+				else if(getArr()[i][(int)st.getY()].getTypeInt()==1){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal()*2;
+				}
+				else if(getArr()[i][(int)st.getY()].getTypeInt()==2){
+					score+=w.getWordInLetters()[i-(int)st.getX()].getVal()*3;
+				}
+			}
+			boolean dWord=false;
+			boolean tWord=false;
+			for(int i=(int)st.getX();i<(int)st.getX()+length;i++){
+				if(getArr()[i][(int)st.getY()].getTypeInt()==3)dWord=true;
+				if(getArr()[i][(int)st.getY()].getTypeInt()==4)tWord=true;
+			}
+			if(dWord==true)score*=2;
+			if(tWord==true)score*=3;
+			
+		}
+		else if(dir=='V'){
+			for(int i=(int)st.getY();i<(int)st.getY()+length;i++){
+				if(getArr()[(int)st.getX()][i].getTypeInt()==0){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal();
+				}
+				else if(getArr()[(int)st.getX()][i].getTypeInt()==1){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal()*2;
+				}
+				else if(getArr()[(int)st.getX()][i].getTypeInt()==2){
+					score+=w.getWordInLetters()[i-(int)st.getY()].getVal()*3;
+				}
+			}
+			boolean dWord=false;
+			boolean tWord=false;
+			for(int i=(int)st.getY();i<(int)st.getY()+length;i++){
+				if(getArr()[(int)st.getX()][i].getTypeInt()==3)dWord=true;
+				if(getArr()[(int)st.getX()][i].getTypeInt()==4)tWord=true;
+			}
+			if(dWord==true)score*=2;
+			if(tWord==true)score*=3;
+		}
+		
+		return score;
 	}
 }
