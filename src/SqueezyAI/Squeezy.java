@@ -188,9 +188,10 @@ public class Squeezy extends Player{
 			for(int i=(int)st.getX();i<(int)st.getX()+length;i++){
 				if(b.getArr()[i][(int)st.getY()].getTypeInt()==3)dWord=true;
 				if(b.getArr()[i][(int)st.getY()].getTypeInt()==4)tWord=true;
-				if(dWord==true)score*=2;
-				if(tWord==true)score*=3;
+				
 			}
+			if(dWord==true)score*=2;
+			if(tWord==true)score*=3;
 			
 			
 		}
