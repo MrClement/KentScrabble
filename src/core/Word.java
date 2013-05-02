@@ -48,7 +48,7 @@ public class Word implements Serializable {
 		}
 	}
 
-	private int valCalc() {
+	public int valCalc() {
 		int v = 0;
 		for (int i = 0; i < wordL.length; i++) {
 			v += wordL[i].getVal();
@@ -66,6 +66,10 @@ public class Word implements Serializable {
 
 	public int getVal() {
 		return val;
+	}
+
+	public void setVal(int i) {
+		val = i;
 	}
 
 	public Point getLocation() {

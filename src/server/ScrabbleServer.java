@@ -20,6 +20,10 @@ public class ScrabbleServer {
 		Board b;
 		LetterBag lb;
 
+		int playerOneScore = 0;
+		int playerTwoScore = 0;
+		Word justPlayed;
+
 		ServerSocket serverSocket = null;
 
 		Socket client;
@@ -54,19 +58,23 @@ public class ScrabbleServer {
 				// client 1 action
 				out.writeObject(b);
 				out.writeObject(lb);
-				b.addWord((Word) in.readObject());
+				justPlayed = (Word) in.readObject();
+				b.addWord(justPlayed);
 				b = new Board(b);
 				lb = (LetterBag) in.readObject();
 				window.redraw(b);
-				System.out.println("Done1");
+				System.out.println("Player 1 played: " + justPlayed.getWord() + " for " + b.getWordScore(justPlayed)
+						+ " points.");
 				// client 2 action
 				out2.writeObject(b);
 				out2.writeObject(lb);
-				b.addWord((Word) in2.readObject());
+				justPlayed = (Word) in2.readObject();
+				b.addWord(justPlayed);
 				b = new Board(b);
 				lb = (LetterBag) in2.readObject();
 				window.redraw(b);
-				System.out.println("Done2");
+				System.out.println("Player 2 played: " + justPlayed.getWord() + " for " + b.getWordScore(justPlayed)
+						+ " points.");
 			}
 		} catch (IOException e) {
 			System.out.println("Listen failed: " + port);
