@@ -54,7 +54,7 @@ public class ScrabbleServer {
 			window.redraw(b);
 
 			// play game
-			for (int i = 0; i < 7; i++) {
+			while (lb.getSize() > 0) {
 				// client 1 action
 				out.writeObject(b);
 				out.writeObject(lb);
