@@ -145,6 +145,8 @@ public class Board implements Serializable {
 				if(getArr()[i][(int)st.getY()].getTypeInt()==4)tWord=true;
 				
 			}
+			
+			
 			if(dWord==true)score*=2;
 			if(tWord==true)score*=3;
 	
