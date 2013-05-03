@@ -127,4 +127,9 @@ public class LetterBag implements Serializable {
 		}
 		return d;
 	}
+
+	public ArrayList<Letter> getBag() {
+		return bag;
+	}
+
 }
