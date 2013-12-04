@@ -49,8 +49,8 @@ public class ScrabbleServer {
 			System.out.println("Got client 1");
 			client2 = serverSocket.accept();
 			System.out.println("Got client 2");
-			client3 = serverSocket.accept();
-			System.out.println("Got client 3");
+			// client3 = serverSocket.accept();
+			// System.out.println("Got client 3");
 			// client4 = serverSocket.accept();
 			// System.out.println("Got client 4");
 			b = new Board();
@@ -59,8 +59,8 @@ public class ScrabbleServer {
 			in = new ObjectInputStream(client.getInputStream());
 			out2 = new ObjectOutputStream(client2.getOutputStream());
 			in2 = new ObjectInputStream(client2.getInputStream());
-			out3 = new ObjectOutputStream(client3.getOutputStream());
-			in3 = new ObjectInputStream(client3.getInputStream());
+			// out3 = new ObjectOutputStream(client3.getOutputStream());
+			// in3 = new ObjectInputStream(client3.getInputStream());
 			// out4 = new ObjectOutputStream(client4.getOutputStream());
 			// in4 = new ObjectInputStream(client4.getInputStream());
 
@@ -94,16 +94,17 @@ public class ScrabbleServer {
 						+ " points.");
 				printLetterBag(lb);
 				// client 3 action
-				out3.writeObject(b);
-				out3.writeObject(lb);
-				justPlayed = (Word) in3.readObject();
-				b.addWord(justPlayed);
-				b = new Board(b);
-				lb = (LetterBag) in3.readObject();
-				window.redraw(b);
-				System.out.println("Player 3 played: " + justPlayed.getWord() + " for " + b.getWordScore(justPlayed)
-						+ " points.");
-				printLetterBag(lb);
+				// out3.writeObject(b);
+				// out3.writeObject(lb);
+				// justPlayed = (Word) in3.readObject();
+				// b.addWord(justPlayed);
+				// b = new Board(b);
+				// lb = (LetterBag) in3.readObject();
+				// window.redraw(b);
+				// System.out.println("Player 3 played: " + justPlayed.getWord()
+				// + " for " + b.getWordScore(justPlayed)
+				// + " points.");
+				// printLetterBag(lb);
 				// // client 4 action
 				// out4.writeObject(b);
 				// out4.writeObject(lb);
